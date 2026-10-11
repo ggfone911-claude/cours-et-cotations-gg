@@ -1,0 +1,2 @@
+# Python 3.11 ou plus récent
+pytest==8.3.3
