@@ -16,7 +16,7 @@ Le site est en construction. Il est réalisé par étapes (« lots »), et chaqu
 
 | Étape | Contenu | État |
 |---|---|---|
-| 0 | Mise en place du dépôt et page « Bientôt disponible » | En cours |
+| 0 | Mise en place du dépôt et page « Bientôt disponible » | En cours de validation |
 | 1 | Liste des fonds et portefeuilles | À faire |
 | 2 | Relevés automatiques Boursorama | À faire |
 | 3 | Onglet Fonds | À faire |
