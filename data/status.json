@@ -1,0 +1,13 @@
+{
+ "daily": {
+  "date": "2026-10-13T09:50:44Z",
+  "ok": true,
+  "funds_total": 61,
+  "funds_ok": 61,
+  "funds_failed": 0,
+  "failed_isins": [],
+  "failed_step": null,
+  "newest_vl_date": "2026-10-11",
+  "message": "61/61 fonds relevés"
+ }
+}
