@@ -193,6 +193,43 @@ select { padding: 6px 8px; border: 1px solid #c9ced6; border-radius: 6px; font-s
 .barre-alloc.uc { background: var(--vert); }
 .allocation span { font-variant-numeric: tabular-nums; font-size: .85rem; }
 
+
+/* ── Portefeuilles perso ─────────────────────────────────────────────── */
+.message { padding: 10px 14px; border-radius: 8px; margin: 0 0 14px; }
+.message.info { background: #e8f1fb; color: #1d3f6e; border: 1px solid #c6daf2; }
+.message.alerte { background: #fde7c8; color: #7a3a06; border: 1px solid #f3c58a; }
+.bandeau-partage { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.actions-perso { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+.ligne-confirmation { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; padding: 10px; border-radius: 8px; background: #f7f9fc; }
+.ligne-confirmation.alerte { background: #fdecea; border: 1px solid #f2b8ae; }
+.bouton-danger { padding: 7px 14px; border: 0; border-radius: 6px; background: #b42318; color: #fff; cursor: pointer; font-weight: 600; }
+.champ-texte { padding: 7px 9px; border: 1px solid #c9ced6; border-radius: 6px; font-size: 15px; min-width: 220px; }
+.champ-poids { width: 90px; padding: 5px 7px; border: 1px solid #c9ced6; border-radius: 6px; text-align: right; font-size: 14px; }
+.bouton-icone { border: 0; background: none; cursor: pointer; font-size: 1rem; color: var(--gris-texte); padding: 4px 8px; }
+.tableau-composition .nom-fonds { min-width: 200px; }
+.total-poids { font-weight: 700; margin: 10px 0 0; }
+.total-poids.ok { color: var(--vert-texte); }
+.total-poids.ko { color: var(--rouge-texte); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.fenetre-selection {
+  width: min(720px, calc(100vw - 32px)); max-height: calc(100vh - 48px); border: 0; border-radius: 12px;
+  padding: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.25); display: flex; flex-direction: column; gap: 10px;
+}
+.fenetre-selection:not([open]) { display: none; }
+.fenetre-selection::backdrop { background: rgba(15, 23, 42, .45); }
+.fenetre-selection .champ-recherche { flex: none; }
+.liste-selection { overflow-y: auto; flex: 1; min-height: 200px; }
+.liste-selection fieldset { border: 1px solid var(--bordure); border-radius: 8px; margin: 0 0 10px; padding: 6px 10px; }
+.liste-selection legend { font-weight: 700; padding: 0 4px; }
+.choix-fonds { display: flex; align-items: center; gap: 6px; padding: 4px 0; flex-wrap: wrap; cursor: pointer; }
+.pied-fenetre { justify-content: flex-end; }
+
+/* ── Simulateur ──────────────────────────────────────────────────────── */
+.champs-sim { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.champ-sim { display: flex; flex-direction: column; gap: 4px; }
+.champ-sim input { width: 130px; padding: 6px 8px; border: 1px solid #c9ced6; border-radius: 6px; font-size: 15px; text-align: right; }
+.tableau-sim { max-height: 420px; margin-top: 12px; }
+
 /* Zone d'impression : invisible à l'écran */
 #impression { display: none; }
 
@@ -220,7 +257,7 @@ select { padding: 6px 8px; border: 1px solid #c9ced6; border-radius: 6px; font-s
   #impression th, #impression td { border-bottom: 1px solid #ccc; padding: 3px 5px; text-align: right; }
   #impression th:first-child, #impression td:first-child { text-align: left; }
   #impression .mentions-impression { margin-top: 14px; font-size: 9px; color: #444; }
-  .barre-onglets, .barre-filtres, .sous-onglets, select, .tri .fleche, .alerte { display: none !important; }
+  .barre-onglets, .barre-filtres, .sous-onglets, select, .tri .fleche, .alerte, dialog, .actions-perso { display: none !important; }
   body { background: #fff; font-size: 11px; }
   .en-tete { background: none; color: #000; padding: 0 0 8px; }
   .chiffre-cle { background: none; border: 1px solid #ccc; }

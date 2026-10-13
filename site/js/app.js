@@ -7,6 +7,7 @@ import { pourcent, dateLongue, jourMois, VIDE } from './format.js';
 import { joursOuvresEntre } from './calc.js';
 import { afficherFonds } from './funds-view.js';
 import { afficherPortefeuilles } from './portfolios-view.js';
+import { afficherPerso } from './perso-view.js';
 
 const ONGLETS = [
   { id: 'fonds', label: 'Fonds' },
@@ -85,8 +86,9 @@ function construireOnglets() {
 }
 
 function router() {
-  const id = (location.hash.slice(1).split('=')[0]) || 'fonds';
-  const onglet = ONGLETS.find((o) => o.id === id) || ONGLETS[0];
+  const [id, ...reste] = location.hash.slice(1).split('=');
+  const parametre = reste.join('=');
+  const onglet = ONGLETS.find((o) => o.id === (id || 'fonds')) || ONGLETS[0];
   for (const o of ONGLETS) {
     const lien = document.getElementById(`onglet-${o.id}`);
     lien.setAttribute('aria-selected', String(o === onglet));
@@ -96,6 +98,7 @@ function router() {
   contenu.setAttribute('aria-labelledby', `onglet-${onglet.id}`);
   if (onglet.id === 'fonds') afficherFonds(contenu, modele);
   else if (onglet.id === 'portefeuilles') afficherPortefeuilles(contenu, modele);
+  else if (onglet.id === 'perso') afficherPerso(contenu, modele, parametre || null);
   else contenu.append(el('section', { classe: 'carte' }, [
     el('h2', { texte: onglet.label }),
     el('p', { texte: 'Cette partie du site arrive dans une prochaine étape.' }),

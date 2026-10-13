@@ -173,3 +173,32 @@ export function indicateursPortefeuille({ periode, allocFE, allocDOP, perfFE, pe
   const moyVol = moyenne('vol');
   return { cumul, annualise, volatilite: moyVol === null ? null : partUc * moyVol };
 }
+
+// ── Simulateur de projection ────────────────────────────────────────────────
+
+/**
+ * Projection mensuelle à rendement constant, hors frais et fiscalité.
+ * taux mensuel = (1 + r)^(1/12) − 1 ; chaque mois :
+ * capital = capital × (1 + taux mensuel) + versement mensuel.
+ * Renvoie { capital, verse, gains, annees: [{annee, verse, capital, gains}] }.
+ */
+export function simuler({ initial, mensuel, annees, tauxAnnuel }) {
+  const tm = (1 + tauxAnnuel / 100) ** (1 / 12) - 1;
+  let capital = initial;
+  let verse = initial;
+  const lignes = [];
+  for (let mois = 1; mois <= annees * 12; mois++) {
+    capital = capital * (1 + tm) + mensuel;
+    verse += mensuel;
+    if (mois % 12 === 0) lignes.push({ annee: mois / 12, verse, capital, gains: capital - verse });
+  }
+  return { capital, verse, gains: capital - verse, annees: lignes };
+}
+
+// Lignes du tableau annuel : toutes jusqu'à 12 ans, puis une sur deux
+// (jusqu'à 24 ans) ou une sur trois ; la dernière année est toujours gardée.
+export function lignesAffichees(lignes) {
+  const n = lignes.length;
+  const pas = n <= 12 ? 1 : n <= 24 ? 2 : 3;
+  return lignes.filter((l) => l.annee % pas === 0 || l.annee === n);
+}

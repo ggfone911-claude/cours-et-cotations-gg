@@ -11,6 +11,7 @@ import {
   indicateursPortefeuille, FENETRE_RISQUE_MOIS,
 } from './calc.js';
 import { imprimer } from './print.js';
+import { afficherSimulateur } from './simulator.js';
 
 const PERIODES = [
   { cle: 'a1', label: '1 an', annees: 1 },
@@ -63,8 +64,9 @@ export function afficherPortefeuilles(conteneur, modele) {
   }
 
   const panneau = el('div', { id: 'panneau-profil', role: 'tabpanel', 'aria-labelledby': `onglet-profil-${profil.id}` });
-  conteneur.append(liste, panneau);
-  vuePortefeuille(panneau, modele, {
+  const zoneSimulateur = el('div');
+  conteneur.append(liste, panneau, zoneSimulateur);
+  const portefeuille = vuePortefeuille(panneau, modele, {
     titre: `Portefeuille ${profil.label}`,
     entete: [
       el('div', { classe: 'entete-section' }, [
@@ -78,6 +80,7 @@ export function afficherPortefeuilles(conteneur, modele) {
     lignes: profil.funds,
     decoches: decoches.get(profil.id),
   });
+  afficherSimulateur(zoneSimulateur, () => portefeuille);
 }
 
 /**
