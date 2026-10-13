@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Pas de continue-on-error : un relevé vide, partiel ou périmé fait
+      # Aucune poursuite en cas d'erreur : un relevé vide, partiel ou périmé fait
       # échouer le run, et quotes.json n'est pas modifié.
       - name: Relevé Boursorama
         run: python scripts/scrape_daily.py

@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Pas de continue-on-error : moins de 60 % de fonds relevés fait échouer
+      # Aucune poursuite en cas d'erreur : moins de 60 % de fonds relevés fait échouer
       # le run, et history.json n'est pas modifié.
       - name: Historique Boursorama
         run: python scripts/scrape_history.py
