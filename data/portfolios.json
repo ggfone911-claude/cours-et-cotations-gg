@@ -1,0 +1,219 @@
+{
+  "as_of": "2026-10-08",
+  "profiles": [
+    {
+      "id": "pru",
+      "label": "Prudent",
+      "emoji": "🔵",
+      "range": "SRRI 1–3",
+      "description": "Horizon 3–5 ans · Préservation du capital · Rendement cible ~2–3 %/an",
+      "note": "31 % SRRI 1 (monétaire) · 15 % SRRI 2 (oblig. horizon) · 54 % SRRI 3 (obligataire & long-short)",
+      "funds": [
+        {
+          "isin": "FR0013287315",
+          "weight": 10
+        },
+        {
+          "isin": "FR0011461326",
+          "weight": 10
+        },
+        {
+          "isin": "LU1585265066",
+          "weight": 11
+        },
+        {
+          "isin": "FR001400PKZ3",
+          "weight": 15
+        },
+        {
+          "isin": "FR0010564328",
+          "weight": 12
+        },
+        {
+          "isin": "LU0284394235",
+          "weight": 14
+        },
+        {
+          "isin": "LU1694790202",
+          "weight": 14
+        },
+        {
+          "isin": "LU1317704051",
+          "weight": 7
+        },
+        {
+          "isin": "FR0010871830",
+          "weight": 7
+        }
+      ]
+    },
+    {
+      "id": "equ",
+      "label": "Équilibré",
+      "emoji": "🟢",
+      "range": "SRRI 1–5",
+      "description": "Horizon 5–7 ans · Croissance modérée · Rendement cible ~7–9 %/an",
+      "note": "4 % SRRI 2 (oblig. horizon) · 12 % SRRI 3 (obligataire) · 66 % SRRI 4 (diversifiés & flexibles) · 18 % SRRI 5 (actions flexibles / immobilier)",
+      "funds": [
+        {
+          "isin": "FR001400PKZ3",
+          "weight": 4
+        },
+        {
+          "isin": "LU0284394235",
+          "weight": 12
+        },
+        {
+          "isin": "LU0512124107",
+          "weight": 10
+        },
+        {
+          "isin": "FR0010135103",
+          "weight": 10
+        },
+        {
+          "isin": "FR0010564336",
+          "weight": 8
+        },
+        {
+          "isin": "FR0007439666",
+          "weight": 8
+        },
+        {
+          "isin": "FR0010489542",
+          "weight": 6
+        },
+        {
+          "isin": "LU2147879543",
+          "weight": 6
+        },
+        {
+          "isin": "FR0011199314",
+          "weight": 4
+        },
+        {
+          "isin": "FR0011253624",
+          "weight": 8
+        },
+        {
+          "isin": "FR0013256930",
+          "weight": 6
+        },
+        {
+          "isin": "FR0011175652",
+          "weight": 4
+        },
+        {
+          "isin": "FR0013087152",
+          "weight": 4
+        },
+        {
+          "isin": "FR0000989915",
+          "weight": 4
+        },
+        {
+          "isin": "FR0013367265",
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "id": "dyn",
+      "label": "Dynamique",
+      "emoji": "🔴",
+      "range": "SRRI 1–7",
+      "description": "Horizon 7–10 ans · Croissance forte · Rendement cible ~15–20 %/an",
+      "note": "6 % SRRI 4 (diversifiés & flexibles) · 94 % SRRI 6 (actions)",
+      "funds": [
+        {
+          "isin": "LU0512124107",
+          "weight": 6
+        },
+        {
+          "isin": "FR0010148981",
+          "weight": 7
+        },
+        {
+          "isin": "FR0010564229",
+          "weight": 7
+        },
+        {
+          "isin": "FR0010863688",
+          "weight": 6
+        },
+        {
+          "isin": "FR0000295230",
+          "weight": 6
+        },
+        {
+          "isin": "LU0870553020",
+          "weight": 5
+        },
+        {
+          "isin": "LU1490785091",
+          "weight": 4
+        },
+        {
+          "isin": "FR0000974149",
+          "weight": 5
+        },
+        {
+          "isin": "FR0014008EI2",
+          "weight": 5
+        },
+        {
+          "isin": "FR0007076930",
+          "weight": 4
+        },
+        {
+          "isin": "FR0000989899",
+          "weight": 3
+        },
+        {
+          "isin": "FR0010547067",
+          "weight": 4
+        },
+        {
+          "isin": "FR0010298596",
+          "weight": 4
+        },
+        {
+          "isin": "FR0010547869",
+          "weight": 3
+        },
+        {
+          "isin": "LU2661119755",
+          "weight": 5
+        },
+        {
+          "isin": "LU1833929729",
+          "weight": 5
+        },
+        {
+          "isin": "FR0010380675",
+          "weight": 4
+        },
+        {
+          "isin": "LU0270904781",
+          "weight": 4
+        },
+        {
+          "isin": "LU0255976994",
+          "weight": 4
+        },
+        {
+          "isin": "LU0104884860",
+          "weight": 3
+        },
+        {
+          "isin": "IE000S1JLOI7",
+          "weight": 3
+        },
+        {
+          "isin": "FR0014014FK3",
+          "weight": 3
+        }
+      ]
+    }
+  ]
+}

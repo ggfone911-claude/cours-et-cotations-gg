@@ -16,8 +16,8 @@ Le site est en construction. Il est réalisé par étapes (« lots »), et chaqu
 
 | Étape | Contenu | État |
 |---|---|---|
-| 0 | Mise en place du dépôt et page « Bientôt disponible » | En cours de validation |
-| 1 | Liste des fonds et portefeuilles | À faire |
+| 0 | Mise en place du dépôt et page « Bientôt disponible » | Validé |
+| 1 | Liste des fonds et portefeuilles | En cours de validation |
 | 2 | Relevés automatiques Boursorama | À faire |
 | 3 | Onglet Fonds | À faire |
 | 4 | Portefeuilles modèles | À faire |
@@ -29,11 +29,22 @@ L'ancien site (`conservateur-fonds`) continue de fonctionner normalement en para
 
 ## Modifier les données à la main
 
-Plus tard, trois fichiers du dossier `data/` pourront être modifiés sans toucher au reste :
+Trois fichiers du dossier `data/` se modifient sans toucher au reste :
 
 - `funds.json` : la liste des fonds ;
 - `portfolios.json` : la composition des portefeuilles modèles ;
 - `euro_fund.json` : la grille des taux du fonds en euros et la DOP.
+
+Après une modification, le contrôle automatique sur GitHub vérifie que tout est cohérent (pondérations à 100 %, ISIN valides, SRRI entre 1 et 7…).
+
+### La liste des fonds en chiffres
+
+- **61 fonds relevés** chaque jour sur Boursorama :
+  - 51 figurent sur la liste officielle Conservateur Finance du 01/10/2026 ;
+  - 10 ont été ajoutés le 08/10/2026.
+- **50 fonds affichés** sur le site.
+- **11 parts de distribution (D)** sont relevées mais pas affichées, par choix.
+- **1 fonds « En attente »** : Lazard Japanese Strategic Equity, car Boursorama ne publie pas encore ses données.
 
 ## Mentions légales
 

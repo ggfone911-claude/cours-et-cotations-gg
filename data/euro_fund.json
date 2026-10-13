@@ -1,0 +1,53 @@
+{
+  "year": 2025,
+  "euro_fund": {
+    "allocation": {
+      "min": 20,
+      "max": 49,
+      "default": 30
+    },
+    "threshold_eur": 150000,
+    "grid": [
+      {
+        "uc_min": 70,
+        "rate_low": 4.0,
+        "rate_high": 4.25,
+        "label": "UC ≥ 70 %"
+      },
+      {
+        "uc_min": 60,
+        "rate_low": 3.75,
+        "rate_high": 4.0,
+        "label": "60 % ≤ UC < 70 %"
+      },
+      {
+        "uc_min": 50,
+        "rate_low": 3.25,
+        "rate_high": 3.5,
+        "label": "50 % ≤ UC < 60 %"
+      },
+      {
+        "uc_min": 40,
+        "rate_low": 2.0,
+        "rate_high": 2.25,
+        "label": "40 % ≤ UC < 50 %"
+      },
+      {
+        "uc_min": 0,
+        "rate_low": 1.1,
+        "rate_high": 1.1,
+        "label": "UC < 40 %"
+      }
+    ]
+  },
+  "dop": {
+    "label": "DOP",
+    "rate": 5.0,
+    "allocation": {
+      "min": 0,
+      "max": 30,
+      "default": 0
+    },
+    "interest": "simple"
+  }
+}

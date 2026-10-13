@@ -1,0 +1,727 @@
+{
+  "version": 1,
+  "source_list": "Liste des OPC commercialisés par Conservateur Finance — 01/10/2026, complétée des 10 fonds ajoutés le 08/10/2026",
+  "categories": [
+    {
+      "id": "monetaire",
+      "label": "Monétaire / Oblig. CT",
+      "color": "#3266ad",
+      "order": 1
+    },
+    {
+      "id": "oblig_lt",
+      "label": "Obligataire LT",
+      "color": "#2a5298",
+      "order": 2
+    },
+    {
+      "id": "oblig_horizon",
+      "label": "Oblig. à Horizon",
+      "color": "#1a3a6b",
+      "order": 3
+    },
+    {
+      "id": "mixtes_oblig",
+      "label": "Mixtes Obligataires",
+      "color": "#0d6efd",
+      "order": 4
+    },
+    {
+      "id": "actions_fr",
+      "label": "Actions Françaises",
+      "color": "#198754",
+      "order": 5
+    },
+    {
+      "id": "actions_eu",
+      "label": "Actions Européennes",
+      "color": "#20c997",
+      "order": 6
+    },
+    {
+      "id": "actions_int",
+      "label": "Actions Internationales",
+      "color": "#fd7e14",
+      "order": 7
+    },
+    {
+      "id": "flexibles",
+      "label": "Flexibles",
+      "color": "#6f42c1",
+      "order": 8
+    }
+  ],
+  "funds": [
+    {
+      "isin": "FR0013287315",
+      "bourso_id": "0P0001CB5C",
+      "name": "Palatine Monétaire Court Terme (R)",
+      "manager": "Palatine AM",
+      "category": "monetaire",
+      "srri": 1,
+      "share_class": "R",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0011461334",
+      "bourso_id": "0P0000ZL7R",
+      "name": "Conservateur Obligations Court Terme (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "monetaire",
+      "srri": 1,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0011461326",
+      "bourso_id": "0P0000ZL7Q",
+      "name": "Conservateur Oblig. CT (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "monetaire",
+      "srri": 1,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1585265066",
+      "bourso_id": "0P0001KJDD",
+      "name": "TF - Tikehau Short Duration (R)",
+      "manager": "Tikehau IM",
+      "category": "monetaire",
+      "srri": 1,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1694790202",
+      "bourso_id": "0P0001CH1A",
+      "name": "DNCA INVEST Flex Inflation",
+      "manager": "DNCA Finance",
+      "category": "oblig_lt",
+      "srri": 3,
+      "share_class": "B",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010564328",
+      "bourso_id": "MP-460761",
+      "name": "Conservateur Oblig. MT (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "oblig_lt",
+      "srri": 3,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0007497813",
+      "bourso_id": "MP-305918",
+      "name": "Conservateur Obligations Moyen Terme (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "oblig_lt",
+      "srri": 3,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR001400PKZ3",
+      "bourso_id": "0P0001UGT4",
+      "name": "Conservateur Horizon 2031 (I)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "oblig_horizon",
+      "srri": 2,
+      "share_class": "I",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR001400PL02",
+      "bourso_id": "0P0001UGT3",
+      "name": "Conservateur Horizon 2031 (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "oblig_horizon",
+      "srri": 2,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0512124107",
+      "bourso_id": "0P0000P3DN",
+      "name": "DNCA Invest - Convertibles (B)",
+      "manager": "DNCA Finance",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0284394235",
+      "bourso_id": "MP-420353",
+      "name": "DNCA Invest - Eurose (A)",
+      "manager": "DNCA Finance",
+      "category": "mixtes_oblig",
+      "srri": 3,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010135103",
+      "bourso_id": "MP-829413",
+      "name": "Carmignac Patrimoine (A)",
+      "manager": "Carmignac Gestion",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010564336",
+      "bourso_id": "MP-495318",
+      "name": "Conservateur Diversifié (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010057711",
+      "bourso_id": "MP-495316",
+      "name": "Conservateur Diversifié (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0011199314",
+      "bourso_id": "0P0000VYE0",
+      "name": "Conservateur Immo-Or (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0011199322",
+      "bourso_id": "0P0000VYE1",
+      "name": "Conservateur Immo-Or (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0010489542",
+      "bourso_id": "MP-514618",
+      "name": "Conservateur Diversifié Réactif (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010510370",
+      "bourso_id": "0P0000JZWQ",
+      "name": "Conservateur Diversifié Réactif (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0007439666",
+      "bourso_id": "0P00005VUH",
+      "name": "Congrégation Investissement (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR001400UAZ4",
+      "bourso_id": "0P0001XK54",
+      "name": "Congrégation Investissement (R)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "R",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0013087152",
+      "bourso_id": "0P00019OMO",
+      "name": "Conservateur Rendement Flexible (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0013108982",
+      "bourso_id": "0P00019OMN",
+      "name": "Conservateur Rendement Flexible (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "mixtes_oblig",
+      "srri": 4,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0007076930",
+      "bourso_id": "MP-805274",
+      "name": "Centifolia (C)",
+      "manager": "DNCA Finance",
+      "category": "actions_fr",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0000989899",
+      "bourso_id": "MP-802731",
+      "name": "Oddo BHF Avenir (CR)",
+      "manager": "Oddo AM",
+      "category": "actions_fr",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010547869",
+      "bourso_id": "MP-928594",
+      "name": "SEXTANT PME-A",
+      "manager": "Amiral Gestion",
+      "category": "actions_fr",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0014008EH4",
+      "bourso_id": "0P0001P8TC",
+      "name": "Conservateur Actions Euro (I)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "I",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0011606268",
+      "bourso_id": "0P00011IDZ",
+      "name": "Oddo BHF Active SMALL CAP (CR)",
+      "manager": "Oddo AM",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0014008EI2",
+      "bourso_id": "0P0001P8TA",
+      "name": "Conservateur Actions Euro (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0014008EJ0",
+      "bourso_id": "0P0001P8TB",
+      "name": "Conservateur Actions Euro Part D",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0010321802",
+      "bourso_id": "MP-800952",
+      "name": "Echiquier Agressor (A)",
+      "manager": "Financière de l'Echiquier",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0000989915",
+      "bourso_id": "MP-800743",
+      "name": "Oddo BHF Immobilier (CR)",
+      "manager": "Oddo AM",
+      "category": "actions_eu",
+      "srri": 5,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010298596",
+      "bourso_id": "MP-807288",
+      "name": "Moneta Multi Caps (C)",
+      "manager": "Moneta AM",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0013256930",
+      "bourso_id": "0P0001HI3U",
+      "name": "Conservateur Actions Flexibles (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_eu",
+      "srri": 5,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0013256922",
+      "bourso_id": "0P0001HI3T",
+      "name": "Conservateur Actions Flexibles (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_eu",
+      "srri": 5,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "LU0870553020",
+      "bourso_id": "0P0000XTFD",
+      "name": "DNCA Invest SRI Europe Growth (A)",
+      "manager": "DNCA Finance",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010038257",
+      "bourso_id": "MP-806670",
+      "name": "Conservateur Emploi Durable (C)",
+      "manager": "Palatine AM",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0000930471",
+      "bourso_id": "MP-829178",
+      "name": "Conservateur Emploi Durable (D)",
+      "manager": "Palatine AM",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "LU1490785091",
+      "bourso_id": "0P000195NQ",
+      "name": "DNCA Invest SRI Norden Europe A",
+      "manager": "DNCA Finance",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0592698954",
+      "bourso_id": "0P0000TIYB",
+      "name": "Carmignac Portf. Emerging Patrimoine (A)",
+      "manager": "Carmignac Gestion",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010148981",
+      "bourso_id": "MP-800128",
+      "name": "Carmignac Investissement (A)",
+      "manager": "Carmignac Gestion",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010863688",
+      "bourso_id": "MP-664642",
+      "name": "Echiquier Positive Impact (A)",
+      "manager": "Financière de l'Echiquier",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010564229",
+      "bourso_id": "MP-460332",
+      "name": "Conservateur Actions Monde (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0007499470",
+      "bourso_id": "MP-958966",
+      "name": "Conservateur Actions Monde (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0000974149",
+      "bourso_id": "MP-803486",
+      "name": "Oddo BHF Avenir Europe (CR)",
+      "manager": "Oddo AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0000295230",
+      "bourso_id": "MP-829523",
+      "name": "Comgest Renaissance Europe (C)",
+      "manager": "Comgest AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU2147879543",
+      "bourso_id": "0P0001L9PD",
+      "name": "Tikehau International Cross Assets (R)",
+      "manager": "Tikehau IM",
+      "category": "flexibles",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0011175652",
+      "bourso_id": "0P00015XU2",
+      "name": "Conservateur Reverso (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "flexibles",
+      "srri": 4,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0011184191",
+      "bourso_id": "0P00015XU4",
+      "name": "Conservateur Reverso (D)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "flexibles",
+      "srri": 4,
+      "share_class": "D",
+      "displayed": false,
+      "pending": null
+    },
+    {
+      "isin": "FR0011253624",
+      "bourso_id": "0P00017T6E",
+      "name": "R-co Valor (C)",
+      "manager": "Rothschild et Cie Gestion",
+      "category": "flexibles",
+      "srri": 5,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU2661119755",
+      "bourso_id": "0P0001RR16",
+      "name": "DNCA Invest Évolutif (C)",
+      "manager": "DNCA Finance",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010547067",
+      "bourso_id": "MP-804104",
+      "name": "Echiquier Value Europe (P)",
+      "manager": "Financière de l'Echiquier",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010380675",
+      "bourso_id": "MP-807639",
+      "name": "Lazard Actions Émergentes (RC)",
+      "manager": "Lazard Frères Gestion",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0104884860",
+      "bourso_id": "MP-308138",
+      "name": "Pictet - Water (P)",
+      "manager": "Pictet AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0270904781",
+      "bourso_id": "MP-234204",
+      "name": "Pictet - Security (P)",
+      "manager": "Pictet AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0255976994",
+      "bourso_id": "MP-216931",
+      "name": "Pictet - Asian Equities Ex Japan (P)",
+      "manager": "Pictet AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1833929729",
+      "bourso_id": "0P0001E1MW",
+      "name": "ODDO BHF US Equity Trend (CR)",
+      "manager": "Oddo AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1317704051",
+      "bourso_id": "0P000171LG",
+      "name": "Carmignac Pf Long-Short European Equities (A)",
+      "manager": "Carmignac Gestion",
+      "category": "flexibles",
+      "srri": 3,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0014014FK3",
+      "bourso_id": "0P0001YHXX",
+      "name": "Lazard Sovereignty Europe (RC)",
+      "manager": "Lazard Frères Gestion",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "IE000S1JLOI7",
+      "bourso_id": "0P0001S03R",
+      "name": "Lazard Japanese Strategic Equity (B Acc EUR H)",
+      "manager": "Lazard Fund Managers (Ireland)",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": null,
+      "displayed": true,
+      "pending": "En attente — Boursorama ne publie ni date de VL ni performances pour cette part"
+    },
+    {
+      "isin": "FR0010871830",
+      "bourso_id": "MP-642855",
+      "name": "Moneta Long Short (R)",
+      "manager": "Moneta AM",
+      "category": "flexibles",
+      "srri": 3,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0013367265",
+      "bourso_id": "0P0001F34F",
+      "name": "R-co Valor Balanced (C)",
+      "manager": "Rothschild & Co AM",
+      "category": "flexibles",
+      "srri": 4,
+      "share_class": null,
+      "displayed": true,
+      "pending": null
+    }
+  ]
+}
