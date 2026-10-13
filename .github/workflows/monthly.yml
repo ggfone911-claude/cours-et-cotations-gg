@@ -1,0 +1,43 @@
+name: Historique mensuel des VL
+
+# Déclenchement manuel pour l'instant ; la programmation (cron) arrive au lot 6.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
+jobs:
+  historique:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Pas de continue-on-error : moins de 60 % de fonds relevés fait échouer
+      # le run, et history.json n'est pas modifié.
+      - name: Historique Boursorama
+        run: python scripts/scrape_history.py
+
+      - name: Validation des données
+        run: python scripts/validate.py
+
+      - name: Commit et push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history.json data/status.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement"
+            exit 0
+          fi
+          git commit -m "Historique mensuel — $(TZ=Europe/Paris date '+%d/%m/%Y')"
+          git pull --rebase origin main
+          git push origin HEAD:main
