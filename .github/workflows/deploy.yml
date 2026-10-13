@@ -8,6 +8,8 @@ on:
       - 'data/**'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
+  # Appelé à la fin des relevés : un push fait avec GITHUB_TOKEN ne
+  # déclenche pas d'autre workflow.
   workflow_call:
 
 permissions:
@@ -15,18 +17,21 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Toujours la dernière version de main, y compris le commit de données
+      # que le relevé vient de pousser.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Copie des données dans le site
         run: |

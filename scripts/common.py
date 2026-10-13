@@ -33,7 +33,9 @@ HEADERS_XHR = {
 TIMEOUT = 20      # secondes
 PAUSE = 0.8       # secondes entre deux fonds, jamais de requêtes en parallèle
 
-URL_FICHE = "https://www.boursorama.com/bourse/opcvm/cours/{}/"
+# Remplaçable par la variable d'environnement CCGG_URL_FICHE, uniquement pour
+# simuler une panne (recette : workflow lancé avec « simuler_echec »).
+URL_FICHE = os.environ.get("CCGG_URL_FICHE") or "https://www.boursorama.com/bourse/opcvm/cours/{}/"
 
 
 def ouvreur():

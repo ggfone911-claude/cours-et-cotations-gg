@@ -21,11 +21,26 @@ Le site est en construction. Il est réalisé par étapes (« lots »), et chaqu
 | 2 | Relevés automatiques Boursorama | Validé |
 | 3 | Onglet Fonds | Validé |
 | 4 | Portefeuilles modèles | Validé |
-| 5 | Portefeuilles perso et simulateur | En cours de validation |
-| 6 | Automatisation complète et onglet État | À faire |
+| 5 | Portefeuilles perso et simulateur | Validé |
+| 6 | Automatisation complète et onglet État | En cours de validation |
 | 7 | Bascule depuis l'ancien site | À faire |
 
 L'ancien site (`conservateur-fonds`) continue de fonctionner normalement en parallèle.
+
+## Mises à jour automatiques
+
+- **Relevé quotidien** : du lundi au vendredi vers 8 h (heure de Paris en été, 7 h en hiver), et le samedi une heure plus tard.
+- **Historique mensuel** : le 1er de chaque mois.
+- Après chaque relevé, le site est republié tout seul.
+- **En cas de panne** (Boursorama injoignable, page changée…) : les données de la veille restent affichées, un bandeau orange prévient sur le site, et l'exécution apparaît en rouge dans l'onglet *Actions* de GitHub. L'onglet **État des données** du site détaille le dernier relevé.
+
+### Si GitHub Actions est en panne
+
+Double-cliquez sur `mettre_a_jour_maintenant.command` (dans le dossier du projet) : il fait le relevé depuis le Mac, contrôle les données et les met en ligne. Il attend que vous appuyiez sur Entrée avant de se fermer.
+
+### Lancer un relevé à la main
+
+Sur GitHub : *Actions* → *Relevé quotidien des VL* → *Run workflow*. La case « simuler une panne » sert uniquement à vérifier que les alertes fonctionnent.
 
 ## Modifier les données à la main
 

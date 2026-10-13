@@ -8,6 +8,7 @@ import { joursOuvresEntre } from './calc.js';
 import { afficherFonds } from './funds-view.js';
 import { afficherPortefeuilles } from './portfolios-view.js';
 import { afficherPerso } from './perso-view.js';
+import { afficherEtat } from './etat-view.js';
 
 const ONGLETS = [
   { id: 'fonds', label: 'Fonds' },
@@ -99,10 +100,7 @@ function router() {
   if (onglet.id === 'fonds') afficherFonds(contenu, modele);
   else if (onglet.id === 'portefeuilles') afficherPortefeuilles(contenu, modele);
   else if (onglet.id === 'perso') afficherPerso(contenu, modele, parametre || null);
-  else contenu.append(el('section', { classe: 'carte' }, [
-    el('h2', { texte: onglet.label }),
-    el('p', { texte: 'Cette partie du site arrive dans une prochaine étape.' }),
-  ]));
+  else afficherEtat(contenu, modele);
 }
 
 demarrer();

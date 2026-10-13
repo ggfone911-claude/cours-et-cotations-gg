@@ -1,8 +1,15 @@
 name: Relevé quotidien des VL
 
-# Déclenchement manuel pour l'instant ; la programmation (cron) arrive au lot 6.
 on:
+  schedule:
+    - cron: '0 6 * * 1-5'   # du lundi au vendredi, 6 h UTC
+    - cron: '0 7 * * 6'     # le samedi, 7 h UTC
   workflow_dispatch:
+    inputs:
+      simuler_echec:
+        description: "Recette : simuler une panne de Boursorama (URL invalide)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -21,10 +28,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Aucune poursuite en cas d'erreur : un relevé vide, partiel ou périmé fait
-      # échouer le run, et quotes.json n'est pas modifié.
+      # En cas d'échec, le script ne touche pas à quotes.json et écrit
+      # seulement status.json ; on publie ce statut (alerte sur le site)
+      # puis le run est mis en échec à la dernière étape.
       - name: Relevé Boursorama
-        run: python scripts/scrape_daily.py
+        id: releve
+        env:
+          CCGG_URL_FICHE: ${{ inputs.simuler_echec && 'https://adresse-invalide.example/{}/' || '' }}
+        run: |
+          set +e
+          python scripts/scrape_daily.py
+          echo "code=$?" >> "$GITHUB_OUTPUT"
 
       - name: Validation des données
         run: python scripts/validate.py
@@ -38,6 +52,27 @@ jobs:
             echo "Aucun changement"
             exit 0
           fi
-          git commit -m "Relevé VL — $(TZ=Europe/Paris date '+%d/%m/%Y %H:%M')"
+          horodatage="$(TZ=Europe/Paris date '+%d/%m/%Y %H:%M')"
+          if [ "${{ steps.releve.outputs.code }}" = "0" ]; then
+            git commit -m "Relevé VL — ${horodatage}"
+          else
+            git commit -m "Relevé VL en échec — ${horodatage}"
+          fi
           git pull --rebase origin main
           git push origin HEAD:main
+
+      - name: Résultat du relevé
+        if: steps.releve.outputs.code != '0'
+        run: |
+          echo "::error::Relevé en échec : quotes.json inchangé (voir data/status.json)"
+          exit 1
+
+  publication:
+    needs: releve
+    # Publié même si le relevé a échoué : le site doit afficher l'alerte.
+    if: ${{ !cancelled() }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml

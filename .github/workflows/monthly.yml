@@ -1,7 +1,8 @@
 name: Historique mensuel des VL
 
-# Déclenchement manuel pour l'instant ; la programmation (cron) arrive au lot 6.
 on:
+  schedule:
+    - cron: '0 7 1 * *'     # le 1er de chaque mois, 7 h UTC
   workflow_dispatch:
 
 permissions:
@@ -21,10 +22,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Aucune poursuite en cas d'erreur : moins de 60 % de fonds relevés fait échouer
-      # le run, et history.json n'est pas modifié.
+      # En cas d'échec, history.json n'est pas modifié ; seul status.json
+      # l'est, puis le run est mis en échec à la dernière étape.
       - name: Historique Boursorama
-        run: python scripts/scrape_history.py
+        id: historique
+        run: |
+          set +e
+          python scripts/scrape_history.py
+          echo "code=$?" >> "$GITHUB_OUTPUT"
 
       - name: Validation des données
         run: python scripts/validate.py
@@ -38,6 +43,26 @@ jobs:
             echo "Aucun changement"
             exit 0
           fi
-          git commit -m "Historique mensuel — $(TZ=Europe/Paris date '+%d/%m/%Y')"
+          jour="$(TZ=Europe/Paris date '+%d/%m/%Y')"
+          if [ "${{ steps.historique.outputs.code }}" = "0" ]; then
+            git commit -m "Historique mensuel — ${jour}"
+          else
+            git commit -m "Historique mensuel en échec — ${jour}"
+          fi
           git pull --rebase origin main
           git push origin HEAD:main
+
+      - name: Résultat de l'historique
+        if: steps.historique.outputs.code != '0'
+        run: |
+          echo "::error::Historique en échec : history.json inchangé (voir data/status.json)"
+          exit 1
+
+  publication:
+    needs: historique
+    if: ${{ !cancelled() }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
