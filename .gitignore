@@ -5,3 +5,4 @@ __pycache__/
 .venv/
 # Copie des données faite au déploiement, jamais versionnée
 site/data/
+.claude/

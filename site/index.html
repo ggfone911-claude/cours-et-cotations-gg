@@ -6,19 +6,27 @@
   <meta name="description" content="VL et performances des fonds Conservateur Finance, relevées chaque jour sur Boursorama.">
   <title>Cours et Cotations GG</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="vendor/chart.umd.4.4.1.min.js" defer></script>
+  <script type="module" src="js/app.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Cours et Cotations GG</h1>
+  <header class="en-tete">
+    <div class="en-tete-haut">
+      <h1>Cours et Cotations GG</h1>
+      <p id="sous-titre" class="sous-titre">VL et performances Boursorama</p>
+    </div>
+    <div id="chiffres-cles" class="chiffres-cles" aria-live="polite"></div>
   </header>
-  <main>
-    <section class="carte">
-      <h2>Bientôt disponible</h2>
-      <p>Le suivi des valeurs liquidatives et des performances des fonds Conservateur Finance arrive très prochainement sur cette page.</p>
-    </section>
+  <div id="alerte" class="alerte" role="alert" hidden></div>
+  <nav class="barre-onglets">
+    <div id="onglets" class="onglets" role="tablist" aria-label="Sections du site"></div>
+  </nav>
+  <main id="contenu" role="tabpanel">
+    <p class="chargement">Chargement des données…</p>
   </main>
-  <footer>
+  <footer class="pied">
     <p>Les performances passées ne préjugent pas des performances futures. L'assureur ne s'engage que sur le nombre d'unités de compte et non sur leur valeur. Données issues de Boursorama, fournies à titre informatif, sans garantie d'exactitude. Document établi à titre informatif, ne constitue pas un conseil en investissement.</p>
+    <p><span id="date-generation"></span> <a href="#etat">État des données</a></p>
   </footer>
 </body>
 </html>

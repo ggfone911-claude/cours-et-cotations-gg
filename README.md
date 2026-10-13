@@ -18,8 +18,8 @@ Le site est en construction. Il est réalisé par étapes (« lots »), et chaqu
 |---|---|---|
 | 0 | Mise en place du dépôt et page « Bientôt disponible » | Validé |
 | 1 | Liste des fonds et portefeuilles | Validé |
-| 2 | Relevés automatiques Boursorama | En cours de validation |
-| 3 | Onglet Fonds | À faire |
+| 2 | Relevés automatiques Boursorama | Validé |
+| 3 | Onglet Fonds | En cours de validation |
 | 4 | Portefeuilles modèles | À faire |
 | 5 | Portefeuilles perso et simulateur | À faire |
 | 6 | Automatisation complète et onglet État | À faire |

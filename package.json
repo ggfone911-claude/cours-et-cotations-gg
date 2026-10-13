@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "type": "module",
+  "description": "Aucune dépendance ni étape de build : ce fichier sert seulement à node --test (modules ES)."
+}
