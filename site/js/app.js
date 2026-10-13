@@ -6,6 +6,7 @@ import { el, vider, ongletsClavier } from './dom.js';
 import { pourcent, dateLongue, jourMois, VIDE } from './format.js';
 import { joursOuvresEntre } from './calc.js';
 import { afficherFonds } from './funds-view.js';
+import { afficherPortefeuilles } from './portfolios-view.js';
 
 const ONGLETS = [
   { id: 'fonds', label: 'Fonds' },
@@ -94,6 +95,7 @@ function router() {
   const contenu = vider(document.getElementById('contenu'));
   contenu.setAttribute('aria-labelledby', `onglet-${onglet.id}`);
   if (onglet.id === 'fonds') afficherFonds(contenu, modele);
+  else if (onglet.id === 'portefeuilles') afficherPortefeuilles(contenu, modele);
   else contenu.append(el('section', { classe: 'carte' }, [
     el('h2', { texte: onglet.label }),
     el('p', { texte: 'Cette partie du site arrive dans une prochaine étape.' }),

@@ -99,3 +99,77 @@ export function joursOuvresEntre(debutIso, finIso) {
   }
   return n;
 }
+
+// ── Portefeuilles : fonds en euros, DOP, répartition UC, indicateurs ────────
+
+// Taux du fonds en euros selon la part d'UC (100 − allocation FE ; la DOP
+// n'entre pas dans le calcul de la tranche) et l'encours (seuil 150 000 €).
+export function tauxFondsEuros(grille, partUcPourTranche, encoursEleve) {
+  const lignes = [...grille].sort((a, b) => b.uc_min - a.uc_min);
+  const ligne = lignes.find((g) => partUcPourTranche >= g.uc_min) || lignes[lignes.length - 1];
+  return { taux: encoursEleve ? ligne.rate_high : ligne.rate_low, tranche: ligne.label };
+}
+
+// Part de l'année civile écoulée (base 365 jours), pour le YTD des taux fixes.
+export function fractionAnnee(date = new Date()) {
+  const debut = new Date(date.getFullYear(), 0, 1);
+  return (date - debut) / (1000 * 60 * 60 * 24 * 365);
+}
+
+// Fonds en euros : intérêts composés ; YTD au prorata du temps écoulé.
+export function perfFondsEuros(taux, fraction) {
+  const t = taux / 100;
+  return {
+    ytd: taux * fraction,
+    a1: taux,
+    a3: ((1 + t) ** 3 - 1) * 100,
+    a5: ((1 + t) ** 5 - 1) * 100,
+  };
+}
+
+// DOP : intérêts simples (taux × années).
+export function perfDop(taux, fraction) {
+  return { ytd: taux * fraction, a1: taux, a3: taux * 3, a5: taux * 5 };
+}
+
+// Répartit la part UC au prorata des pondérations des fonds cochés
+// (arrondi au dixième de point, comme l'ancien site). Décoché → 0.
+export function repartirUC(lignes, partUc) {
+  const total = lignes.filter((l) => l.coche).reduce((s, l) => s + l.weight, 0);
+  return lignes.map((l) => (l.coche && total > 0
+    ? Math.round((l.weight / total) * partUc * 10) / 10 : 0));
+}
+
+const ANNEES = { a1: 1, a3: 3, a5: 5 };
+
+/**
+ * Indicateurs du portefeuille pour une période (a1, a3 ou a5).
+ * - performance cumulée = FE % × perf FE + DOP % × perf DOP + part UC × moyenne
+ *   des perfs UC pondérée par les allocations réelles ; les fonds sans valeur
+ *   sur la période sont exclus de cette moyenne (renormalisation) ;
+ * - annualisée = (1 + cumul)^(1/années) − 1 ;
+ * - volatilité : approximation documentée = part UC × moyenne pondérée des
+ *   volatilités des UC (FE et DOP comptés à 0, corrélations ignorées).
+ * Renvoie null pour un indicateur sans aucune donnée UC.
+ */
+export function indicateursPortefeuille({ periode, allocFE, allocDOP, perfFE, perfDOP, uc }) {
+  const partUc = (100 - allocFE - allocDOP) / 100;
+  const moyenne = (cle) => {
+    let somme = 0;
+    let poids = 0;
+    for (const l of uc) {
+      if (l.alloc > 0 && l[cle] !== null && l[cle] !== undefined) {
+        somme += l.alloc * l[cle];
+        poids += l.alloc;
+      }
+    }
+    return poids > 0 ? somme / poids : null;
+  };
+  const moyUc = moyenne(periode);
+  const cumul = moyUc === null ? null
+    : (allocFE / 100) * perfFE[periode] + (allocDOP / 100) * perfDOP[periode] + partUc * moyUc;
+  const annees = ANNEES[periode];
+  const annualise = cumul === null ? null : ((1 + cumul / 100) ** (1 / annees) - 1) * 100;
+  const moyVol = moyenne('vol');
+  return { cumul, annualise, volatilite: moyVol === null ? null : partUc * moyVol };
+}
