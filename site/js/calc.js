@@ -47,20 +47,40 @@ export function moisMoins(cle, n) {
   return `${Math.floor(total / 12)}-${String((total % 12) + 1).padStart(2, '0')}`;
 }
 
+// Durées des courbes base 100. « 1 mois » utilise les VL journalières
+// (daily.json) ; les autres, l'historique mensuel (dernière VL de chaque mois).
+export const FENETRES_COURBES = [
+  { cle: '1m', label: '1 mois', journalier: true },
+  { cle: '6m', label: '6 mois', mois: 6 },
+  { cle: 'ytd', label: 'Depuis le 1er janvier' },
+  { cle: '1a', label: '1 an', mois: 12 },
+  { cle: '3a', label: '3 ans', mois: 36 },
+  { cle: '5a', label: '5 ans', mois: 60 },
+];
+
+// Mois de base d'une fenêtre se terminant au mois « fin » (« AAAA-MM »).
+// YTD : décembre de l'année précédente (dernière VL de l'année écoulée).
+export function moisDeBase(fin, cle) {
+  if (cle === 'ytd') return `${Number(fin.slice(0, 4)) - 1}-12`;
+  const f = FENETRES_COURBES.find((x) => x.cle === cle && x.mois);
+  if (!f) throw new Error(`Durée inconnue : ${cle}`);
+  return moisMoins(fin, f.mois);
+}
+
 /**
  * Courbes rebasées à 100 sur une date commune.
- * series : { isin: [{date: 'AAAA-MM', vl}] } ; annees : 1, 3 ou 5.
+ * series : { isin: [{date: 'AAAA-MM', vl}] } ; fenetre : '3m', '6m', 'ytd', '1a', '3a' ou '5a'.
  * La fenêtre se termine au mois le plus récent présent dans les séries. La
  * base est le premier mois de la fenêtre : un fonds sans VL à cette date est
  * exclu (jamais rebasé sur une autre date que les autres).
  * Renvoie { base, fin, courbes: {isin: [{date, valeur}]}, exclus: [isin] }.
  */
-export function rebaser(series, annees) {
+export function rebaser(series, fenetre) {
   const isins = Object.keys(series);
   const tous = isins.flatMap((i) => (series[i] || []).map((p) => p.date));
   if (!tous.length) return { base: null, fin: null, courbes: {}, exclus: isins };
   const fin = tous.reduce((a, b) => (b > a ? b : a));
-  const base = moisMoins(fin, annees * 12);
+  const base = moisDeBase(fin, fenetre);
 
   const courbes = {};
   const exclus = [];
@@ -72,6 +92,49 @@ export function rebaser(series, annees) {
       continue;
     }
     courbes[isin] = points.map((p) => ({ date: p.date, valeur: (p.vl / depart.vl) * 100 }));
+  }
+  return { base, fin, courbes, exclus };
+}
+
+// « 2026-10-12 » − 1 mois → « 2026-09-12 » (fin de mois ramenée au dernier jour).
+export function jourMoinsUnMois(iso) {
+  const [a, m, j] = iso.split('-').map(Number);
+  const mois = m === 1 ? 12 : m - 1;
+  const annee = m === 1 ? a - 1 : a;
+  const dernier = new Date(Date.UTC(annee, mois, 0)).getUTCDate();
+  return `${annee}-${String(mois).padStart(2, '0')}-${String(Math.min(j, dernier)).padStart(2, '0')}`;
+}
+
+export const ECART_MAX_JOURS_BASE = 7;
+
+/**
+ * Courbes « 1 mois » rebasées à 100 sur une date commune, à partir des VL
+ * journalières. La base est la date la plus récente des séries moins un mois ;
+ * la valeur de base d'un fonds est sa dernière VL connue à cette date (au plus
+ * 7 jours avant, sinon le fonds est exclu). Même retour que rebaser().
+ */
+export function rebaserJournalier(series) {
+  const isins = Object.keys(series);
+  const tous = isins.flatMap((i) => (series[i] || []).map((p) => p.date));
+  if (!tous.length) return { base: null, fin: null, courbes: {}, exclus: isins };
+  const fin = tous.reduce((a, b) => (b > a ? b : a));
+  const base = jourMoinsUnMois(fin);
+  const limite = new Date(Date.parse(`${base}T00:00:00Z`) - ECART_MAX_JOURS_BASE * 86400000)
+    .toISOString().slice(0, 10);
+
+  const courbes = {};
+  const exclus = [];
+  for (const isin of isins) {
+    const serie = series[isin] || [];
+    const avant = serie.filter((p) => p.date <= base);
+    const depart = avant[avant.length - 1];
+    if (!depart || depart.date < limite || !(depart.vl > 0)) {
+      exclus.push(isin);
+      continue;
+    }
+    courbes[isin] = [{ date: base, valeur: 100 },
+      ...serie.filter((p) => p.date > base && p.date <= fin)
+        .map((p) => ({ date: p.date, valeur: (p.vl / depart.vl) * 100 }))];
   }
   return { base, fin, courbes, exclus };
 }

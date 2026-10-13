@@ -2,7 +2,7 @@
 
 import { volatilite, perteMaximale } from './calc.js';
 
-const FICHIERS = ['funds', 'quotes', 'history', 'status', 'portfolios', 'euro_fund'];
+const FICHIERS = ['funds', 'quotes', 'history', 'daily', 'status', 'portfolios', 'euro_fund'];
 const OBLIGATOIRES = ['funds', 'quotes'];
 
 async function lire(nom, version) {
@@ -24,9 +24,10 @@ export async function charger() {
 
 const PERF_VIDE = { ytd: null, w1: null, m1: null, m6: null, a1: null, a3: null, a5: null, a10: null };
 
-export function assembler({ funds, quotes, history, status, portfolios, euro_fund: euroFund }) {
+export function assembler({ funds, quotes, history, daily, status, portfolios, euro_fund: euroFund }) {
   const cotations = (quotes && quotes.data) || {};
   const historiques = (history && history.data) || {};
+  const journaliers = (daily && daily.data) || {};
   const categories = [...funds.categories].sort((a, b) => a.order - b.order);
   const parCategorie = Object.fromEntries(categories.map((c) => [c.id, c]));
 
@@ -42,6 +43,7 @@ export function assembler({ funds, quotes, history, status, portfolios, euro_fun
       eom: (q && q.eom) || PERF_VIDE,
       gli: (q && q.gli) || PERF_VIDE,
       historique: serie,
+      journalier: journaliers[f.isin] || [],
       volatilite: volatilite(serie),
       perteMax: perteMaximale(serie),
     };

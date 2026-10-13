@@ -134,3 +134,11 @@ def test_echec_ne_modifie_pas_history_json(tmp_path, monkeypatch):
     assert (tmp_path / "history.json").read_text(encoding="utf-8") == avant
     statut = json.loads((tmp_path / "status.json").read_text(encoding="utf-8"))
     assert statut["monthly"]["ok"] is False
+
+
+def test_series_journalieres():
+    serie = scrape_history.journaliser(reponse([
+        ("2026-10-09", 866.39), ("2026-10-08", 862.22), ("2026-10-12", 867.15), ("2026-10-12", 867.15)]))
+    assert serie == [{"date": "2026-10-08", "vl": 862.22}, {"date": "2026-10-09", "vl": 866.39},
+                     {"date": "2026-10-12", "vl": 867.15}]
+    assert scrape_history.journaliser({"x": 1}) == []

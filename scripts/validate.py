@@ -3,8 +3,8 @@
 Usage : python scripts/validate.py [dossier_data]
 
 Sort avec le code 1 et la liste des erreurs si un contrôle échoue.
-Les fichiers générés (quotes.json, history.json) ne sont contrôlés que s'ils
-existent.
+Les fichiers générés (quotes.json, history.json, daily.json) ne sont contrôlés
+que s'ils existent.
 """
 import json
 import re
@@ -146,6 +146,21 @@ def valider_history(history, funds):
     return erreurs
 
 
+def valider_daily(daily, funds):
+    erreurs = []
+    connus = {f["isin"] for f in funds.get("funds", [])}
+    for isin, points in daily.get("data", {}).items():
+        if isin not in connus:
+            erreurs.append(f"daily.json : {isin} absent de funds.json")
+        dates = [p.get("date") for p in points]
+        if dates != sorted(dates) or len(dates) != len(set(dates)) \
+                or not all(DATE_RE.match(str(d)) for d in dates):
+            erreurs.append(f"daily.json : dates invalides, non triées ou en double pour {isin}")
+        if any(not isinstance(p.get("vl"), (int, float)) or p["vl"] <= 0 for p in points):
+            erreurs.append(f"daily.json : VL invalide pour {isin}")
+    return erreurs
+
+
 def charger(dossier, nom, obligatoire=True):
     chemin = dossier / nom
     if not chemin.exists():
@@ -162,6 +177,7 @@ def valider(dossier=DATA):
         euro_fund = charger(dossier, "euro_fund.json")
         quotes = charger(dossier, "quotes.json", obligatoire=False)
         history = charger(dossier, "history.json", obligatoire=False)
+        daily = charger(dossier, "daily.json", obligatoire=False)
     except (FileNotFoundError, json.JSONDecodeError) as e:
         return [str(e)]
 
@@ -172,6 +188,8 @@ def valider(dossier=DATA):
         erreurs += valider_quotes(quotes, funds)
     if history is not None:
         erreurs += valider_history(history, funds)
+    if daily is not None:
+        erreurs += valider_daily(daily, funds)
     return erreurs
 
 

@@ -203,3 +203,30 @@ def test_echec_ne_modifie_pas_quotes_json(tmp_path, monkeypatch):
     statut = json.loads((tmp_path / "status.json").read_text(encoding="utf-8"))
     assert statut["daily"]["ok"] is False
     assert statut["daily"]["funds_failed"] == 61
+
+
+# ── VL journalières (courbe 1 mois) ──────────────────────────────────────────
+def ticks(*points):
+    epoch = datetime.date(1970, 1, 1)
+    return {"d": {"QuoteTab": [{"d": (datetime.date.fromisoformat(j) - epoch).days, "c": c}
+                               for j, c in points]}}
+
+
+def test_releve_journalier():
+    existant = {"data": {"F09": [{"date": "2026-10-01", "vl": 5.0}]}}
+
+    def telecharger(bid):
+        if bid == "0P00000009":
+            raise OSError("panne")
+        return ticks(("2026-10-09", 10.0), ("2026-10-12", 10.5))
+    ok, daily, echecs = scrape_daily.relever_journalier(FONDS, telecharger, AUJOURDHUI, existant, pause=0)
+    assert ok and echecs == ["F09"]
+    assert daily["data"]["F00"] == [{"date": "2026-10-09", "vl": 10.0}, {"date": "2026-10-12", "vl": 10.5}]
+    assert daily["data"]["F09"] == [{"date": "2026-10-01", "vl": 5.0}]  # série précédente gardée
+    assert daily["last_updated"] == "2026-10-13"
+
+
+def test_releve_journalier_en_echec_sous_60_pourcents():
+    ok, daily, echecs = scrape_daily.relever_journalier(
+        FONDS, lambda bid: {"d": {"QuoteTab": []}}, AUJOURDHUI, None, pause=0)
+    assert (ok, daily) == (False, None) and len(echecs) == 10

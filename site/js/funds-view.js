@@ -5,7 +5,9 @@ import { el, vider, ongletsClavier } from './dom.js';
 import {
   pourcent, euros, dateCourte, jourMois, classeSigne, VIDE, TYPE_PAR_SRRI, COULEUR_SRRI,
 } from './format.js';
-import { comparer, rebaser, FENETRE_RISQUE_MOIS } from './calc.js';
+import {
+  comparer, rebaser, rebaserJournalier, FENETRE_RISQUE_MOIS, FENETRES_COURBES,
+} from './calc.js';
 import { barres, courbes } from './charts.js';
 
 const PERIODES = [
@@ -30,7 +32,7 @@ const etat = {
   categorie: null,
   tri: null,            // { cle, sens } ; null = classement par la période choisie
   periode: 'ytd',       // médailles, rang et graphique en barres
-  annees: 1,            // graphique en courbes
+  fenetre: '1a',        // graphique en courbes
 };
 
 let modele = null;
@@ -181,11 +183,18 @@ function vueCategorie() {
   // Les graphiques sont dessinés une fois le panneau inséré dans la page.
   requestAnimationFrame(() => {
     barres(canvasBarres, fonds.map((f) => ({ nom: f.name, valeur: perf(f, etat.periode) })));
-    const r = rebaser(Object.fromEntries(fonds.map((f) => [f.isin, f.historique])), etat.annees);
+    const journalier = etat.fenetre === '1m';
+    const r = journalier
+      ? rebaserJournalier(Object.fromEntries(fonds.map((f) => [f.isin, f.journalier])))
+      : rebaser(Object.fromEntries(fonds.map((f) => [f.isin, f.historique])), etat.fenetre);
     courbes(canvasCourbes, fonds.filter((f) => r.courbes[f.isin])
       .map((f) => ({ nom: f.name, points: r.courbes[f.isin] })));
     const textes = [];
-    if (r.base) textes.push(`Base 100 : dernière VL de ${moisLong(r.base)}.`);
+    if (r.base) {
+      textes.push(journalier
+        ? `Base 100 : dernière VL connue au ${dateCourte(r.base)} (VL journalières).`
+        : `Base 100 : dernière VL ${/^[aeiouyéè]/i.test(moisLong(r.base)) ? 'd’' : 'de '}${moisLong(r.base)}.`);
+    }
     if (r.exclus.length) {
       textes.push(`Exclus faute d'historique : ${r.exclus.map((i) => modele.parIsin[i].name).join(', ')}.`);
     }
@@ -215,9 +224,9 @@ function selecteurPeriode() {
 function selecteurAnnees() {
   const s = el('select', {
     'aria-label': 'Durée affichée',
-    onchange: (e) => { etat.annees = Number(e.target.value); rafraichir(); },
-  }, [1, 3, 5].map((n) => el('option', { value: String(n), texte: n === 1 ? '1 an' : `${n} ans` })));
-  s.value = String(etat.annees);
+    onchange: (e) => { etat.fenetre = e.target.value; rafraichir(); },
+  }, FENETRES_COURBES.map((f) => el('option', { value: f.cle, texte: f.label })));
+  s.value = etat.fenetre;
   return s;
 }
 

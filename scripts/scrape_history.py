@@ -51,6 +51,24 @@ def mensualiser(reponse):
     return [{"date": m, "vl": par_mois[m][1]} for m in sorted(par_mois)]
 
 
+def journaliser(reponse):
+    """Réponse GetTicksEOD → [{"date": "AAAA-MM-JJ", "vl": float}] trié, un point par jour."""
+    try:
+        ticks = reponse["d"]["QuoteTab"]
+    except (KeyError, TypeError):
+        return []
+    par_jour = {}
+    for t in ticks if isinstance(ticks, list) else []:
+        try:
+            jour = _EPOCH + datetime.timedelta(days=int(t["d"]))
+            vl = float(t["c"])
+        except (KeyError, TypeError, ValueError, OverflowError):
+            continue
+        if vl > 0:
+            par_jour[jour.isoformat()] = vl
+    return [{"date": j, "vl": par_jour[j]} for j in sorted(par_jour)]
+
+
 def filtrer_aberrants(points):
     """Écarte un point qui s'écarte d'un facteur > 5 de la médiane de son voisinage.
 

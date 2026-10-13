@@ -14,6 +14,12 @@ n'est pas un gel. Un vrai gel se détecte sur une fenêtre longue (eom inchangé
 depuis plus de 45 jours alors que les VL bougent). Pour tout contrôle croisé
 avec l'historique des VL, utiliser gli, seul jeu synchronisé avec la dernière VL.
 
+VL journalières (courbe « 1 mois » du site) : après le relevé, les cours des
+90 derniers jours sont lus pour chaque fonds via GetTicksEOD (une seule visite
+de fiche pour les cookies de session) et écrits dans data/daily.json. Un fonds
+en échec garde sa série précédente ; si moins de 60 % des séries aboutissent,
+daily.json n'est pas modifié et le script sort avec le code 1.
+
 Garde-fous : le script sort avec le code 1, sans toucher à quotes.json (seul
 status.json est mis à jour), si aucun fonds n'est relevé, si moins de 60 %
 le sont, si la VL la plus récente a plus de 8 jours, ou si la performance
@@ -25,6 +31,7 @@ import sys
 import time
 
 import common
+import scrape_history
 
 TAUX_MIN = 0.60            # part minimale de fonds relevés
 AGE_MAX_JOURS = 8          # âge maximal de la VL la plus récente
@@ -212,6 +219,52 @@ def relever(fonds, telecharger_page, aujourd_hui, precedent, pause=common.PAUSE)
     return 0, quotes, statut
 
 
+URL_TICKS_90J = ("https://www.boursorama.com/bourse/action/graph/ws/GetTicksEOD"
+                 "?symbol={}&length=90&period=0&guid=")   # 60 jours : réponse vide
+
+
+def telecharger_ticks_90j():
+    """Fonction bid → réponse GetTicksEOD, avec une session (cookies) commune."""
+    import json
+
+    opener = common.ouvreur()
+    etat = {"session": False}
+
+    def telecharger(bid):
+        fiche = common.URL_FICHE.format(bid)
+        if not etat["session"]:
+            common.telecharger(fiche, opener=opener)
+            etat["session"] = True
+        return json.loads(common.telecharger(
+            URL_TICKS_90J.format(bid), headers={**common.HEADERS_XHR, "Referer": fiche}, opener=opener))
+    return telecharger
+
+
+def relever_journalier(fonds, telecharger, aujourd_hui, existant, pause=common.PAUSE):
+    """Séries journalières des 90 derniers jours. Renvoie (ok, daily ou None, échecs)."""
+    donnees = dict((existant or {}).get("data", {}))
+    echecs = []
+    for n, (isin, bid) in enumerate(fonds, 1):
+        try:
+            serie = scrape_history.filtrer_aberrants(scrape_history.journaliser(telecharger(bid)))
+        except Exception:
+            serie = []
+        if serie:
+            donnees[isin] = serie
+        else:
+            echecs.append(isin)
+        if pause and n < len(fonds):
+            time.sleep(pause)
+    if len(fonds) - len(echecs) < len(fonds) * TAUX_MIN:
+        print(f"ÉCHEC : VL journalières lues pour {len(fonds) - len(echecs)}/{len(fonds)} fonds "
+              f"— daily.json inchangé")
+        return False, None, echecs
+    connus = {isin for isin, _ in fonds}
+    daily = {"last_updated": aujourd_hui.isoformat(),
+             "data": {i: donnees[i] for i in sorted(donnees) if i in connus}}
+    return True, daily, echecs
+
+
 def main(dossier=common.DATA):
     fonds = common.charger_fonds(dossier)
     aujourd_hui = datetime.date.today()
@@ -222,6 +275,15 @@ def main(dossier=common.DATA):
         aujourd_hui, precedent)
     if quotes is not None:
         common.ecrire_json(dossier / "quotes.json", quotes)
+        ok, daily, echecs = relever_journalier(
+            fonds, telecharger_ticks_90j(), aujourd_hui, common.charger_json(dossier / "daily.json"))
+        statut["journalier_ok"] = ok
+        statut["journalier_echecs"] = echecs
+        if daily is not None:
+            common.ecrire_json(dossier / "daily.json", daily)
+        else:
+            statut["message"] += " — VL journalières en échec (courbe 1 mois non mise à jour)"
+            code = 1
     common.maj_statut(dossier, "daily", statut)
     print(statut["message"])
     return code

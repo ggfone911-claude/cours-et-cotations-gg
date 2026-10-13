@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  volatilite, perteMaximale, rebaser, comparer, moisMoins, joursOuvresEntre,
+  volatilite, perteMaximale, rebaser, rebaserJournalier, jourMoinsUnMois, moisDeBase, comparer,
+  moisMoins, joursOuvresEntre,
 } from '../../site/js/calc.js';
 
 const serie = (vls, debut = 2025) => vls.map((vl, i) => ({
@@ -39,7 +40,7 @@ test('rebasage à 100 sur la même date pour tous les fonds', () => {
   const r = rebaser({
     A: [{ date: '2025-09', vl: 50 }, { date: '2025-10', vl: 40 }, { date: '2026-10', vl: 60 }],
     B: [{ date: '2025-10', vl: 200 }, { date: '2026-04', vl: 210 }, { date: '2026-10', vl: 220 }],
-  }, 1);
+  }, '1a');
   assert.equal(r.base, '2025-10');
   assert.equal(r.fin, '2026-10');
   assert.deepEqual(r.courbes.A, [{ date: '2025-10', valeur: 100 }, { date: '2026-10', valeur: 150 }]);
@@ -51,14 +52,57 @@ test('rebasage : un fonds sans VL à la date de base est exclu, pas rebasé aill
   const r = rebaser({
     ancien: [{ date: '2023-10', vl: 10 }, { date: '2026-10', vl: 12 }],
     recent: [{ date: '2025-01', vl: 100 }, { date: '2026-10', vl: 130 }],
-  }, 3);
+  }, '3a');
   assert.equal(r.base, '2023-10');
   assert.deepEqual(Object.keys(r.courbes), ['ancien']);
   assert.deepEqual(r.exclus, ['recent']);
 });
 
 test('rebasage sans données', () => {
-  assert.deepEqual(rebaser({ A: [] }, 1), { base: null, fin: null, courbes: {}, exclus: ['A'] });
+  assert.deepEqual(rebaser({ A: [] }, '1a'), { base: null, fin: null, courbes: {}, exclus: ['A'] });
+});
+
+test('mois de base des courbes : 6 mois, YTD, 1 à 5 ans', () => {
+  assert.equal(moisDeBase('2026-10', '6m'), '2026-04');
+  assert.equal(moisDeBase('2026-10', 'ytd'), '2025-12');
+  assert.equal(moisDeBase('2026-01', 'ytd'), '2025-12');
+  assert.equal(moisDeBase('2026-10', '1a'), '2025-10');
+  assert.equal(moisDeBase('2026-10', '5a'), '2021-10');
+  assert.throws(() => moisDeBase('2026-10', '2a'));
+  assert.throws(() => moisDeBase('2026-10', '1m'));  // 1 mois : VL journalières
+});
+
+test('courbe depuis le 1er janvier : base = dernière VL de décembre', () => {
+  const r = rebaser({
+    A: [{ date: '2025-11', vl: 90 }, { date: '2025-12', vl: 100 }, { date: '2026-01', vl: 104 },
+      { date: '2026-10', vl: 110 }],
+  }, 'ytd');
+  assert.equal(r.base, '2025-12');
+  r.courbes.A.forEach((p, i) => proche(p.valeur, [100, 104, 110][i]));
+});
+
+test('un mois en arrière, fins de mois comprises', () => {
+  assert.equal(jourMoinsUnMois('2026-10-12'), '2026-09-12');
+  assert.equal(jourMoinsUnMois('2026-01-15'), '2025-12-15');
+  assert.equal(jourMoinsUnMois('2026-03-31'), '2026-02-28');
+});
+
+test('courbe 1 mois : base commune, dernière VL connue à la date de base', () => {
+  const r = rebaserJournalier({
+    quotidien: [{ date: '2026-09-11', vl: 99 }, { date: '2026-09-12', vl: 100 },
+      { date: '2026-10-01', vl: 102 }, { date: '2026-10-12', vl: 105 }],
+    hebdo: [{ date: '2026-09-08', vl: 50 }, { date: '2026-09-15', vl: 51 }, { date: '2026-10-06', vl: 55 }],
+    trop_ancien: [{ date: '2026-08-20', vl: 10 }, { date: '2026-10-10', vl: 11 }],
+    recent: [{ date: '2026-09-20', vl: 10 }, { date: '2026-10-12', vl: 11 }],
+  });
+  assert.equal(r.base, '2026-09-12');
+  assert.equal(r.fin, '2026-10-12');
+  assert.deepEqual(r.courbes.quotidien.map((p) => p.date), ['2026-09-12', '2026-10-01', '2026-10-12']);
+  r.courbes.quotidien.forEach((p, i) => proche(p.valeur, [100, 102, 105][i]));
+  // VL hebdomadaire du 08/09 : connue à la date de base (4 jours avant)
+  proche(r.courbes.hebdo[0].valeur, 100);
+  proche(r.courbes.hebdo[1].valeur, 102);
+  assert.deepEqual(r.exclus, ['trop_ancien', 'recent']);
 });
 
 test('soustraction de mois', () => {

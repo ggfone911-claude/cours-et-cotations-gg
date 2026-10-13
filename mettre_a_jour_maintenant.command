@@ -21,7 +21,7 @@ git clone --quiet git@github.com:ggfone911-claude/cours-et-cotations-gg.git "$TM
   || { echo "Échec du clonage (clé SSH ?). Copiez ce message à Claude."; fin 1; }
 cd "$TMP/site" || fin 1
 
-echo ""; echo "=== 1/3 Relevé quotidien Boursorama (environ 1 min) ==="
+echo ""; echo "=== 1/3 Relevé quotidien Boursorama (environ 2 min) ==="
 "${PY[@]}" scripts/scrape_daily.py | tail -4
 QUOTIDIEN=$?
 
@@ -33,7 +33,7 @@ echo ""; echo "=== 3/3 Contrôle des données ==="
 "${PY[@]}" scripts/validate.py \
   || { echo "ÉCHEC du contrôle : rien n'a été envoyé. Copiez ce message à Claude."; fin 1; }
 
-git add data/quotes.json data/history.json data/status.json
+git add data/quotes.json data/daily.json data/history.json data/status.json
 if git diff --staged --quiet; then
   echo "Aucune donnée nouvelle."
 else
