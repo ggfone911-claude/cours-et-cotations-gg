@@ -1,0 +1,27 @@
+name: Comparaison avec l'ancien site
+
+# Temporaire (lot 7, bascule) : à supprimer une fois la bascule validée.
+# L'ancien dépôt est seulement cloné en lecture : rien n'y est jamais poussé.
+on:
+  schedule:
+    - cron: '30 9 * * 1-5'   # du lundi au vendredi
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  comparaison:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Clone de l'ancien site (lecture seule)
+        run: git clone --depth 1 https://github.com/ggfone911-claude/conservateur-fonds.git "$RUNNER_TEMP/ancien"
+
+      - name: Même page Boursorama lue par les deux parseurs
+        run: python scripts/compare_legacy.py --meme-page "$RUNNER_TEMP/ancien"

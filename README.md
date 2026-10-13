@@ -22,8 +22,8 @@ Le site est en construction. Il est réalisé par étapes (« lots »), et chaqu
 | 3 | Onglet Fonds | Validé |
 | 4 | Portefeuilles modèles | Validé |
 | 5 | Portefeuilles perso et simulateur | Validé |
-| 6 | Automatisation complète et onglet État | En cours de validation |
-| 7 | Bascule depuis l'ancien site | À faire |
+| 6 | Automatisation complète et onglet État | Validé |
+| 7 | Bascule depuis l'ancien site | En cours (comparaison sur 5 jours, voir BASCULE.md) |
 
 L'ancien site (`conservateur-fonds`) continue de fonctionner normalement en parallèle.
 

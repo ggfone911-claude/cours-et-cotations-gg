@@ -228,4 +228,6 @@ def main(dossier=common.DATA):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    # Dossier de données en argument : sert à la comparaison avec l'ancien site
+    # (relevé dans une copie temporaire, sans toucher à data/).
+    sys.exit(main(common.Path(sys.argv[1]) if len(sys.argv) > 1 else common.DATA))
