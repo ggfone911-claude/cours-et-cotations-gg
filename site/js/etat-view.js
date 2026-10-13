@@ -35,13 +35,21 @@ function carteStatut(titre, statut, nom, extra) {
       el('dt', { texte: 'Date' }), el('dd', { texte: dateHeure(statut.date) }),
       el('dt', { texte: 'Fonds relevés' }), el('dd', { texte: `${statut.funds_ok} / ${statut.funds_total}` }),
       el('dt', { texte: 'Fonds en échec' }),
-      el('dd', { texte: statut.failed_isins && statut.failed_isins.length ? statut.failed_isins.map(nom).join(', ') : 'aucun' }),
+      el('dd', {}, listeEchecs(statut.failed_isins || [], nom)),
       statut.failed_step ? el('dt', { texte: 'Étape en échec' }) : null,
       statut.failed_step ? el('dd', { texte: statut.failed_step }) : null,
       el('dt', { texte: 'Message' }), el('dd', { texte: statut.message || VIDE }),
       ...(extra || []),
     ]),
   ]);
+}
+
+// Liste courte affichée directement ; au-delà de 5 fonds, repliée.
+function listeEchecs(isins, nom) {
+  if (!isins.length) return 'aucun';
+  const texte = isins.map(nom).join(', ');
+  if (isins.length <= 5) return texte;
+  return el('details', {}, [el('summary', { texte: `${isins.length} fonds (afficher la liste)` }), el('p', { texte })]);
 }
 
 export function afficherEtat(conteneur, modele) {
