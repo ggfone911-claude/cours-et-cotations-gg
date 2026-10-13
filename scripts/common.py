@@ -97,6 +97,7 @@ def ecrire_json(chemin, contenu):
     with os.fdopen(fd, "w", encoding="utf-8") as f:
         json.dump(contenu, f, ensure_ascii=False, indent=1)
         f.write("\n")
+    os.chmod(tmp, 0o644)  # mkstemp crée le fichier en 0600
     os.replace(tmp, chemin)
 
 
