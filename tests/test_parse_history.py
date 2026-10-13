@@ -31,7 +31,7 @@ def mois(n, vl=100.0):
 def test_reponse_reelle_getticks():
     serie = scrape_history.historique_fonds(
         json.loads((FIXTURES / "ticks_0P0001CB5C.json").read_text()))
-    assert 55 <= len(serie) <= 60
+    assert 55 <= len(serie) <= 61
     dates = [p["date"] for p in serie]
     assert dates == sorted(dates) and len(set(dates)) == len(dates)
     assert all(500 < p["vl"] < 700 for p in serie)
@@ -78,11 +78,12 @@ def test_vraie_hausse_conservee():
     assert scrape_history.filtrer_aberrants(serie) == serie
 
 
-def test_decoupe_a_60_mois():
+def test_decoupe_a_60_mois_plus_le_mois_de_base():
     points = [(f"{2020 + i // 12}-{i % 12 + 1:02}-15", 100.0 + i) for i in range(70)]
     serie = scrape_history.historique_fonds(reponse(points))
-    assert len(serie) == 60
-    assert serie[0]["date"] == "2020-11" and serie[-1]["date"] == "2025-10"
+    assert len(serie) == 61
+    # 2020-10 est la base de la courbe 5 ans qui se termine en 2025-10
+    assert serie[0]["date"] == "2020-10" and serie[-1]["date"] == "2025-10"
 
 
 def test_fonds_recent_serie_courte_gardee():

@@ -9,6 +9,7 @@ import {
 } from './perso-store.js';
 import { vuePortefeuille } from './portfolios-view.js';
 import { afficherSimulateur } from './simulator.js';
+import { lienFonds } from './liens.js';
 
 let etat = null;
 let modele = null;
@@ -254,7 +255,7 @@ function carteComposition(p) {
     const f = modele.parIsin[l.isin];
     return el('tr', {}, [
       el('td', { classe: 'gauche nom-fonds' }, [
-        el('span', { texte: f.name }),
+        lienFonds(f),
         el('span', { classe: 'badge-type', texte: TYPE_PAR_SRRI[f.srri] || '' }),
         f.pending ? el('span', { classe: 'badge-attente', title: f.pending, texte: 'En attente' }) : null,
       ]),

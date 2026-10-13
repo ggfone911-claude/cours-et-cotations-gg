@@ -52,3 +52,14 @@ test('données réelles : 50 fonds affichés, 8 catégories', () => {
   assert.equal(m.categories.length, 8);
   assert.ok(m.fonds.every((f) => f.categorie));
 });
+
+test('données réelles : chaque durée de courbe trace la majorité des fonds', async () => {
+  const { rebaser, rebaserJournalier, FENETRES_COURBES } = await import('../../site/js/calc.js');
+  const historique = lire('history').data;
+  const journalier = lire('daily').data;
+  for (const f of FENETRES_COURBES) {
+    const r = f.journalier ? rebaserJournalier(journalier) : rebaser(historique, f.cle);
+    const traces = Object.keys(r.courbes).length;
+    assert.ok(traces > 40, `${f.label} : ${traces} fonds tracés seulement`);
+  }
+});

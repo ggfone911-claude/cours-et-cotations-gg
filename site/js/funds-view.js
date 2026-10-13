@@ -9,6 +9,7 @@ import {
   comparer, rebaser, rebaserJournalier, FENETRE_RISQUE_MOIS, FENETRES_COURBES,
 } from './calc.js';
 import { barres, courbes } from './charts.js';
+import { lienFonds } from './liens.js';
 
 const PERIODES = [
   { cle: 'ytd', label: 'YTD', long: 'Depuis le 1er janvier' },
@@ -23,7 +24,6 @@ const AIDE_CONVENTION = 'Fin de mois : performances arrêtées à la dernière V
   + 'précédent (calcul Morningstar). Elles ne sont mises à jour qu\'une à deux semaines '
   + 'après le début du mois : c\'est normal, et stable pour le reporting client. '
   + 'Glissantes : performances calculées jusqu\'à la dernière VL connue.';
-const URL_FICHE = 'https://www.boursorama.com/bourse/opcvm/cours/';
 
 const etat = {
   recherche: '',
@@ -278,14 +278,10 @@ function tableau(fonds, avecCategorie) {
         },
       }, [c.label, el('span', { classe: 'fleche', 'aria-hidden': 'true', texte: actif ? (tri.sens === 1 ? '▲' : '▼') : '' })]));
     }),
-    el('th', { scope: 'col' }, el('span', { classe: 'sr-only', texte: 'Fiche Boursorama' })),
   ]);
 
   const corps = lignes.map((f) => el('tr', { classe: f.pending ? 'ligne-attente' : null },
-    cols.map((c) => cellule(c, f, r)).concat(el('td', {}, el('a', {
-      href: `${URL_FICHE}${f.bourso_id}/`, target: '_blank', rel: 'noopener',
-      'aria-label': `Fiche Boursorama de ${f.name}`, texte: '↗',
-    })))));
+    cols.map((c) => cellule(c, f, r))));
 
   return el('div', { classe: 'tableau-defilant' },
     el('table', { classe: 'tableau-fonds' }, [el('thead', {}, entete), el('tbody', {}, corps)]));
@@ -299,7 +295,7 @@ function cellule(c, f, r) {
       return el('td', { classe: 'rang', texte: rang ? (MEDAILLES[rang - 1] || String(rang)) : VIDE });
     }
     case 'name': return el('td', { classe: 'gauche nom-fonds' }, [
-      el('span', { texte: f.name }),
+      lienFonds(f),
       el('span', { classe: 'badge-type', texte: TYPE_PAR_SRRI[f.srri] || '' }),
       f.pending ? el('span', { classe: 'badge-attente', title: f.pending, texte: 'En attente' }) : null,
     ]);

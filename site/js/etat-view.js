@@ -4,6 +4,7 @@
 import { el, vider } from './dom.js';
 import { dateLongue, dateCourte, VIDE } from './format.js';
 import { comparer } from './calc.js';
+import { lienFonds } from './liens.js';
 
 const URL_ACTIONS = 'https://github.com/ggfone911-claude/cours-et-cotations-gg/actions';
 const AGE_ALERTE_JOURS = 8;   // même seuil que le garde-fou du relevé
@@ -64,8 +65,7 @@ export function afficherEtat(conteneur, modele) {
   const lignes = fonds.map((f) => {
     const vieux = f.age === null || f.age > AGE_ALERTE_JOURS;
     return el('tr', { classe: vieux ? 'ligne-attente' : null }, [
-      el('td', { classe: 'gauche', texte: f.name }),
-      el('td', { classe: 'gauche', texte: f.isin }),
+      el('td', { classe: 'gauche' }, lienFonds(f)),
       el('td', { texte: f.displayed ? 'Affiché' : 'Masqué (part D)' }),
       el('td', { texte: dateCourte(f.dateVl) }),
       el('td', { classe: 'nombre', texte: f.age === null ? VIDE : `${f.age} j` }),
@@ -101,8 +101,8 @@ export function afficherEtat(conteneur, modele) {
       el('h3', { texte: `Âge de la VL de chaque fonds (${fonds.length} relevés)` }),
       el('p', { classe: 'note', texte: `Surlignés : VL absente ou datée de plus de ${AGE_ALERTE_JOURS} jours.` }),
       el('div', { classe: 'tableau-defilant' }, el('table', { classe: 'tableau-fonds' }, [
-        el('thead', {}, el('tr', {}, ['Fonds', 'ISIN', 'Affichage', 'Date VL', 'Âge', 'Remarque']
-          .map((t, i) => el('th', { scope: 'col', classe: [0, 1, 5].includes(i) ? 'gauche' : null, texte: t })))),
+        el('thead', {}, el('tr', {}, ['Fonds', 'Affichage', 'Date VL', 'Âge', 'Remarque']
+          .map((t, i) => el('th', { scope: 'col', classe: [0, 4].includes(i) ? 'gauche' : null, texte: t })))),
         el('tbody', {}, lignes),
       ])),
     ]),

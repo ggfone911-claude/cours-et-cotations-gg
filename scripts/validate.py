@@ -141,8 +141,8 @@ def valider_history(history, funds):
         dates = [p.get("date") for p in points]
         if dates != sorted(dates) or len(dates) != len(set(dates)):
             erreurs.append(f"history.json : dates non triées ou en double pour {isin}")
-        if len(points) > 60:
-            erreurs.append(f"history.json : plus de 60 mois pour {isin}")
+        if len(points) > 61:  # 60 mois glissants + le mois de base
+            erreurs.append(f"history.json : plus de 61 points mensuels pour {isin}")
     return erreurs
 
 

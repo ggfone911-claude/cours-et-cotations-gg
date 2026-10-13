@@ -5,7 +5,8 @@ Usage : python scripts/scrape_history.py
 Pour chaque fonds : ouverture de la fiche Boursorama (cookies de session),
 puis appel de l'endpoint GetTicksEOD (Referer + X-Requested-With,
 length=1825, soit 5 ans de cours journaliers). On garde la dernière VL de
-chaque mois et les 60 derniers mois.
+chaque mois et 61 points : 60 mois d'évolution plus le point de départ,
+indispensable à la courbe « 5 ans » (base = dernière VL du mois, 60 mois avant).
 
 - Les cotations aberrantes (facteur > 5 par rapport à la médiane d'une
   fenêtre de 5 mois) sont écartées. Cas réel : FR0010106500 à 47 948 € au lieu de 487 € en 09/2021.
@@ -21,7 +22,7 @@ import time
 import common
 
 TAUX_MIN = 0.60
-MOIS_MAX = 60
+MOIS_MAX = 61   # 60 mois glissants + le mois de base
 FACTEUR_ABERRANT = 5
 URL_TICKS = ("https://www.boursorama.com/bourse/action/graph/ws/GetTicksEOD"
              "?symbol={}&length=1825&period=0&guid=")

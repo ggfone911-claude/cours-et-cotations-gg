@@ -136,6 +136,10 @@ select { padding: 6px 8px; border: 1px solid #c9ced6; border-radius: 6px; font-s
 .nombre { font-variant-numeric: tabular-nums; }
 .positif { color: var(--vert-texte); }
 .negatif { color: var(--rouge-texte); }
+.bloc-nom { display: inline-flex; flex-direction: column; vertical-align: middle; }
+.lien-fonds { color: var(--bleu-fonce); text-decoration: none; font-weight: 600; }
+.lien-fonds:hover, .lien-fonds:focus-visible { text-decoration: underline; }
+.isin { font-size: .72rem; color: var(--gris-texte); font-variant-numeric: tabular-nums; }
 .badge-type {
   display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 9px;
   background: #e8eef8; color: var(--bleu-fonce); font-size: .72rem; vertical-align: middle;

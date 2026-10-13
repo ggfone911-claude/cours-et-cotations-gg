@@ -12,6 +12,7 @@ import {
 } from './calc.js';
 import { imprimer } from './print.js';
 import { afficherSimulateur } from './simulator.js';
+import { lienFonds } from './liens.js';
 
 const PERIODES = [
   { cle: 'a1', label: '1 an', annees: 1 },
@@ -275,7 +276,7 @@ export function vuePortefeuille(conteneur, modele, options) {
             },
           })),
           el('td', { classe: 'gauche nom-fonds' }, [
-            el('span', { texte: f.name }),
+            lienFonds(f),
             el('span', { classe: 'badge-type', texte: TYPE_PAR_SRRI[f.srri] || '' }),
             f.pending ? el('span', { classe: 'badge-attente', title: f.pending, texte: 'En attente' }) : null,
           ]),
