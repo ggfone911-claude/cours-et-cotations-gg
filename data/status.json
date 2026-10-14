@@ -1,13 +1,13 @@
 {
  "daily": {
-  "date": "2026-10-13T20:20:52Z",
+  "date": "2026-10-14T11:37:10Z",
   "ok": true,
   "funds_total": 61,
   "funds_ok": 61,
   "funds_failed": 0,
   "failed_isins": [],
   "failed_step": null,
-  "newest_vl_date": "2026-10-12",
+  "newest_vl_date": "2026-10-13",
   "message": "61/61 fonds relevés",
   "journalier_ok": true,
   "journalier_echecs": []
