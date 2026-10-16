@@ -15,6 +15,9 @@ Automatisme : `.github/workflows/compare.yml`, du lundi au vendredi (onglet *Act
 | Jour | Fonds comparés | Résultat |
 |---|---|---|
 | 13/10/2026 (lancé depuis le Mac) | 61 / 61 | Identique |
+| 14/10/2026 | détail dans le [compte rendu du run](https://github.com/ggfone911-claude/cours-et-cotations-gg/actions/runs/38581981001) | Identique (run vert) |
+| 15/10/2026 | détail dans le [compte rendu du run](https://github.com/ggfone911-claude/cours-et-cotations-gg/actions/runs/38750154000) | Identique (run vert) |
+| 16/10/2026 | détail dans le [compte rendu du run](https://github.com/ggfone911-claude/cours-et-cotations-gg/actions/runs/38913139375) | Identique (run vert) |
 
 ## Après les 5 jours (avec l'accord de Guillaume uniquement)
 
