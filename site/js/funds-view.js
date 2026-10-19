@@ -31,7 +31,8 @@ const etat = {
   convention: 'eom',
   categorie: null,
   tri: null,            // { cle, sens } ; null = classement par la période choisie
-  periode: 'ytd',       // médailles, rang et graphique en barres
+  periode: 'ytd',       // médailles et rang du tableau
+  periodeBarres: 'ytd', // graphique en barres (choix indépendant, comme pour les courbes)
   fenetre: '1a',        // graphique en courbes
 };
 
@@ -156,6 +157,7 @@ function vueCategorie() {
   const canvasBarres = el('canvas', { role: 'img', 'aria-label': `Performances des fonds ${cat.label}` });
   const canvasCourbes = el('canvas', { role: 'img', 'aria-label': `Évolution des VL des fonds ${cat.label}, base 100` });
   const notes = el('p', { classe: 'note' });
+  const noteBarres = el('p', { classe: 'note' });
 
   const panneau = el('div', {
     id: 'panneau-categorie', role: 'tabpanel', 'aria-labelledby': `onglet-cat-${cat.id}`,
@@ -167,8 +169,11 @@ function vueCategorie() {
     ]),
     el('div', { classe: 'graphiques' }, [
       el('section', { classe: 'carte' }, [
-        el('h3', { texte: `Performances — ${libellePeriode()} (${libelleConvention()})` }),
+        el('div', { classe: 'entete-section' }, [
+          el('h3', { texte: `Performances (${libelleConvention()})` }), selecteurBarres(),
+        ]),
         el('div', { classe: 'zone-graphique' }, canvasBarres),
+        noteBarres,
       ]),
       el('section', { classe: 'carte' }, [
         el('div', { classe: 'entete-section' }, [
@@ -182,7 +187,9 @@ function vueCategorie() {
 
   // Les graphiques sont dessinés une fois le panneau inséré dans la page.
   requestAnimationFrame(() => {
-    barres(canvasBarres, fonds.map((f) => ({ nom: f.name, valeur: perf(f, etat.periode) })));
+    const resserre = barres(canvasBarres, fonds.map((f) => ({ nom: f.name, valeur: perf(f, etat.periodeBarres) })));
+    noteBarres.textContent = resserre
+      ? 'Échelle resserrée pour rendre les écarts visibles : l’axe ne part pas de 0 %.' : '';
     const journalier = etat.fenetre === '1m';
     const r = journalier
       ? rebaserJournalier(Object.fromEntries(fonds.map((f) => [f.isin, f.journalier])))
@@ -209,16 +216,27 @@ function moisLong(cle) {
     'septembre', 'octobre', 'novembre', 'décembre'][Number(m) - 1]} ${a}`;
 }
 
-const libellePeriode = () => PERIODES.find((p) => p.cle === etat.periode).long;
 const libelleConvention = () => (etat.convention === 'eom' ? 'fin de mois' : 'glissantes');
 
 function selecteurPeriode() {
   const s = el('select', {
-    'aria-label': 'Période du classement et du graphique',
+    'aria-label': 'Période du classement',
     onchange: (e) => { etat.periode = e.target.value; etat.tri = null; rafraichir(); },
   }, PERIODES.map((p) => el('option', { value: p.cle, texte: p.long })));
   s.value = etat.periode;
   return el('label', { classe: 'selecteur' }, [el('span', { classe: 'etiquette', texte: 'Classement' }), s]);
+}
+
+// Mêmes durées, dans le même ordre, que le graphique en courbes.
+const PERIODES_BARRES = ['m1', 'm6', 'ytd', 'a1', 'a3', 'a5'];
+
+function selecteurBarres() {
+  const s = el('select', {
+    'aria-label': 'Période du graphique en barres',
+    onchange: (e) => { etat.periodeBarres = e.target.value; rafraichir(); },
+  }, PERIODES_BARRES.map((cle) => el('option', { value: cle, texte: PERIODES.find((p) => p.cle === cle).long })));
+  s.value = etat.periodeBarres;
+  return s;
 }
 
 function selecteurAnnees() {

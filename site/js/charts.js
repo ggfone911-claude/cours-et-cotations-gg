@@ -17,12 +17,27 @@ function dessiner(canvas, config) {
   return graphique;
 }
 
+// Échelle resserrée quand toutes les valeurs ont le même signe et sont proches
+// (ex. fonds monétaires entre +0,7 % et +1,6 %) : sinon les écarts sont invisibles.
+// Renvoie {} si l'axe doit partir de 0 %.
+export function bornesResserrees(valeurs) {
+  if (valeurs.length < 2) return {};
+  const min = Math.min(...valeurs);
+  const max = Math.max(...valeurs);
+  const marge = (max - min) * 0.3 || Math.abs(max) * 0.1;
+  if (min > 0 && min > 0.4 * max) return { min: Math.max(0, min - marge) };
+  if (max < 0 && max < 0.4 * min) return { max: Math.min(0, max + marge) };
+  return {};
+}
+
 // Barres horizontales des performances ; les fonds sans valeur sont omis.
+// Renvoie true si l'échelle est resserrée (l'axe ne part pas de 0 %).
 export function barres(canvas, lignes) {
   const donnees = lignes.filter((l) => l.valeur !== null && l.valeur !== undefined)
     .sort((a, b) => b.valeur - a.valeur);
+  const bornes = bornesResserrees(donnees.map((l) => l.valeur));
   canvas.parentElement.style.height = `${Math.max(160, donnees.length * 26 + 40)}px`;
-  return dessiner(canvas, {
+  dessiner(canvas, {
     type: 'bar',
     data: {
       labels: donnees.map((l) => l.nom),
@@ -41,7 +56,11 @@ export function barres(canvas, lignes) {
         tooltip: { callbacks: { label: (c) => pourcent(c.parsed.x) } },
       },
       scales: {
-        x: { ticks: { callback: (v) => pourcent(v, 0) } },
+        x: {
+          beginAtZero: !('min' in bornes || 'max' in bornes),
+          ...bornes,
+          ticks: { callback: (v, i, ticks) => pourcent(v, decimalesAxe(ticks)) },
+        },
         y: {
           ticks: {
             autoSkip: false,
@@ -57,6 +76,7 @@ export function barres(canvas, lignes) {
       },
     },
   });
+  return 'min' in bornes || 'max' in bornes;
 }
 
 // « AAAA-MM » → horodatage du 1er du mois : un vrai axe chronologique.
@@ -92,6 +112,12 @@ function graduationsHebdo(min, max) {
   const ticks = [];
   for (let t = min; t <= max; t += 7 * 86400000) ticks.push({ value: t });
   return ticks;
+}
+
+function decimalesAxe(ticks) {
+  if (ticks.length < 2) return 0;
+  const pas = Math.abs(ticks[1].value - ticks[0].value);
+  return pas >= 1 ? 0 : pas >= 0.1 ? 1 : 2;
 }
 
 // Courbes base 100 ; series : [{nom, points: [{date, valeur}]}]
@@ -135,7 +161,9 @@ export function courbes(canvas, series) {
           },
           ticks: { autoSkip: false, callback: (v) => etiquette(v) },
         },
-        y: { ticks: { callback: (v) => nombre(v, 0) } },
+        // Décimales selon l'écart entre graduations : sinon, sur une courbe
+        // qui bouge peu, l'arrondi à l'unité répète la même valeur (102, 102…).
+        y: { ticks: { callback: (v, i, ticks) => nombre(v, decimalesAxe(ticks)) } },
       },
     },
   });
