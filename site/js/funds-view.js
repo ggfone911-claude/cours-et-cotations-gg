@@ -34,7 +34,10 @@ const etat = {
   periode: 'ytd',       // médailles et rang du tableau
   periodeBarres: 'ytd', // graphique en barres (choix indépendant, comme pour les courbes)
   fenetre: '1a',        // graphique en courbes
+  masques: {},          // catégorie → ISIN décochés : fonds retirés du graphique en courbes
 };
+
+const masques = (cat) => (etat.masques[cat] = etat.masques[cat] || new Set());
 
 let modele = null;
 let zone = null;
@@ -157,6 +160,7 @@ function vueCategorie() {
   const canvasBarres = el('canvas', { role: 'img', 'aria-label': `Performances des fonds ${cat.label}` });
   const canvasCourbes = el('canvas', { role: 'img', 'aria-label': `Évolution des VL des fonds ${cat.label}, base 100` });
   const notes = el('p', { classe: 'note' });
+  const compteCourbes = el('span', { classe: 'note' });
   const noteBarres = el('p', { classe: 'note' });
 
   const panneau = el('div', {
@@ -164,7 +168,7 @@ function vueCategorie() {
   }, [
     el('section', { classe: 'carte' }, [
       el('div', { classe: 'entete-section' }, [el('h2', { texte: cat.label }), selecteurPeriode()]),
-      tableau(fonds, false),
+      tableau(fonds, false, { masques: masques(cat.id), changer: () => dessinerCourbes() }),
       mention(),
     ]),
     el('div', { classe: 'graphiques' }, [
@@ -179,6 +183,13 @@ function vueCategorie() {
         el('div', { classe: 'entete-section' }, [
           el('h3', { texte: 'Évolution des VL (base 100)' }), selecteurAnnees(),
         ]),
+        el('div', { classe: 'choix-courbes' }, [
+          compteCourbes,
+          el('button', { type: 'button', classe: 'bouton-lien', texte: 'Tout cocher',
+            onclick: () => { masques(cat.id).clear(); rafraichir(); } }),
+          el('button', { type: 'button', classe: 'bouton-lien', texte: 'Tout décocher',
+            onclick: () => { fonds.forEach((f) => masques(cat.id).add(f.isin)); rafraichir(); } }),
+        ]),
         el('div', { classe: 'zone-graphique' }, canvasCourbes),
         notes,
       ]),
@@ -190,11 +201,19 @@ function vueCategorie() {
     const resserre = barres(canvasBarres, fonds.map((f) => ({ nom: f.name, valeur: perf(f, etat.periodeBarres) })));
     noteBarres.textContent = resserre
       ? 'Échelle resserrée pour rendre les écarts visibles : l’axe ne part pas de 0 %.' : '';
+    dessinerCourbes();
+  });
+
+  // Seuls les fonds cochés dans le tableau sont tracés ; la base 100 est
+  // recalculée sur leur première date commune.
+  function dessinerCourbes() {
+    const choisis = fonds.filter((f) => !masques(cat.id).has(f.isin));
+    compteCourbes.textContent = `${choisis.length} fonds sur ${fonds.length} affichés (cases du tableau)`;
     const journalier = etat.fenetre === '1m';
     const r = journalier
-      ? rebaserJournalier(Object.fromEntries(fonds.map((f) => [f.isin, f.journalier])))
-      : rebaser(Object.fromEntries(fonds.map((f) => [f.isin, f.historique])), etat.fenetre);
-    courbes(canvasCourbes, fonds.filter((f) => r.courbes[f.isin])
+      ? rebaserJournalier(Object.fromEntries(choisis.map((f) => [f.isin, f.journalier])))
+      : rebaser(Object.fromEntries(choisis.map((f) => [f.isin, f.historique])), etat.fenetre);
+    courbes(canvasCourbes, choisis.filter((f) => r.courbes[f.isin])
       .map((f) => ({ nom: f.name, points: r.courbes[f.isin] })));
     const textes = [];
     if (r.base) {
@@ -206,7 +225,7 @@ function vueCategorie() {
       textes.push(`Exclus faute d'historique : ${r.exclus.map((i) => modele.parIsin[i].name).join(', ')}.`);
     }
     notes.textContent = textes.join(' ');
-  });
+  }
   return panneau;
 }
 
@@ -275,7 +294,8 @@ function rangs(fonds) {
   return new Map(classes.map((f, i) => [f.isin, i + 1]));
 }
 
-function tableau(fonds, avecCategorie) {
+// courbes : { masques, changer } ajoute une case à cocher par fonds pour le graphique en courbes.
+function tableau(fonds, avecCategorie, courbesChoix = null) {
   const cols = colonnes(avecCategorie);
   const r = rangs(fonds);
   const tri = etat.tri || { cle: 'rang', sens: 1 };
@@ -283,6 +303,7 @@ function tableau(fonds, avecCategorie) {
   const lignes = [...fonds].sort((a, b) => comparer(col.val(a, r), col.val(b, r), tri.sens));
 
   const entete = el('tr', {}, [
+    courbesChoix ? el('th', { scope: 'col', title: 'Afficher le fonds sur le graphique en courbes', texte: 'Courbe' }) : null,
     ...cols.map((c) => {
       const actif = c.cle === tri.cle;
       const sens = actif ? (tri.sens === 1 ? 'ascending' : 'descending') : 'none';
@@ -298,11 +319,20 @@ function tableau(fonds, avecCategorie) {
     }),
   ]);
 
-  const corps = lignes.map((f) => el('tr', { classe: f.pending ? 'ligne-attente' : null },
-    cols.map((c) => cellule(c, f, r))));
+  const corps = lignes.map((f) => el('tr', { classe: f.pending ? 'ligne-attente' : null }, [
+    courbesChoix ? caseCourbe(f, courbesChoix) : null,
+    ...cols.map((c) => cellule(c, f, r)),
+  ]));
 
   return el('div', { classe: 'tableau-defilant' },
     el('table', { classe: 'tableau-fonds' }, [el('thead', {}, entete), el('tbody', {}, corps)]));
+}
+
+function caseCourbe(f, { masques: m, changer }) {
+  return el('td', { classe: 'case-courbe' }, el('input', {
+    type: 'checkbox', checked: !m.has(f.isin), 'aria-label': `Afficher ${f.name} sur le graphique en courbes`,
+    onchange: (e) => { if (e.target.checked) m.delete(f.isin); else m.add(f.isin); changer(); },
+  }));
 }
 
 function cellule(c, f, r) {

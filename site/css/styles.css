@@ -179,6 +179,13 @@ select { padding: 6px 8px; border: 1px solid #c9ced6; border-radius: 6px; font-s
 .valeur-curseur { font-weight: 700; min-width: 40px; }
 .taux { font-weight: 700; font-size: 1.05rem; color: var(--bleu-fonce); }
 .note-inline { font-size: .8rem; color: var(--gris-texte); }
+
+/* Cases « Courbe » du tableau et raccourcis au-dessus du graphique en courbes */
+.case-courbe { text-align: center; }
+.case-courbe input { width: 16px; height: 16px; cursor: pointer; accent-color: var(--bleu); }
+.choix-courbes { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 4px 0 8px; }
+.choix-courbes .note { margin: 0; }
+.bouton-lien { border: 0; background: none; padding: 2px 0; color: var(--bleu-fonce); text-decoration: underline; cursor: pointer; font: inherit; font-size: .85rem; }
 .bouton-bascule {
   padding: 6px 10px; border: 1px solid #c9ced6; background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px;
 }
