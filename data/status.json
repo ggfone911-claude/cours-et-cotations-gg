@@ -1,16 +1,25 @@
 {
  "daily": {
-  "date": "2026-10-20T11:19:46Z",
+  "date": "2026-10-21T11:36:14Z",
   "ok": true,
   "funds_total": 61,
-  "funds_ok": 61,
-  "funds_failed": 0,
-  "failed_isins": [],
+  "funds_ok": 55,
+  "funds_failed": 6,
+  "failed_isins": [
+   "FR0010489542",
+   "FR0010510370",
+   "FR0007439666",
+   "FR001400UAZ4",
+   "FR0011175652",
+   "FR0011184191"
+  ],
   "failed_step": null,
-  "newest_vl_date": "2026-10-19",
-  "message": "61/61 fonds relevés",
+  "newest_vl_date": "2026-10-20",
+  "message": "55/61 fonds relevés",
   "journalier_ok": true,
-  "journalier_echecs": []
+  "journalier_echecs": [
+   "IE000S1JLOI7"
+  ]
  },
  "monthly": {
   "date": "2026-10-13T20:28:20Z",
