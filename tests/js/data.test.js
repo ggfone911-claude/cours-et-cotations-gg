@@ -46,9 +46,9 @@ test('fonds non relevé ce jour : date de péremption transmise', () => {
   assert.equal(m.parIsin.X1.perimeDepuis, null);
 });
 
-test('données réelles : 50 fonds affichés, 8 catégories', () => {
+test('données réelles : 71 fonds affichés, 8 catégories', () => {
   const m = assembler({ funds: lire('funds'), quotes: lire('quotes'), history: lire('history'), status: lire('status') });
-  assert.equal(m.fonds.length, 50);
+  assert.equal(m.fonds.length, 71);
   assert.equal(m.categories.length, 8);
   assert.ok(m.fonds.every((f) => f.categorie));
 });
