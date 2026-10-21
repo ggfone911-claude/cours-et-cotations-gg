@@ -61,7 +61,7 @@ Après une modification, le contrôle automatique sur GitHub vérifie que tout e
 - **4 fonds retirés le 21/10/2026**, car non éligibles aux contrats : Congrégation Investissement (C) (remplacée par la part R dans le portefeuille Équilibré), DNCA Invest SRI Europe Growth, Sextant PME et Oddo BHF Active Small Cap.
 - **71 fonds affichés** sur le site.
 - **11 parts de distribution (D)** sont relevées mais pas affichées, par choix.
-- **1 fonds « En attente »** : Lazard Japanese Strategic Equity, car Boursorama ne publie pas encore ses données.
+- **Aucun fonds « En attente »** : Lazard Japanese Strategic Equity l'était jusqu'au 21/10/2026, date à laquelle Boursorama a commencé à publier ses données.
 
 ## Mentions légales
 

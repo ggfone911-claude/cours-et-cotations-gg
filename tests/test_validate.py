@@ -52,7 +52,7 @@ def test_decompte_des_fonds():
     assert sum(f["displayed"] for f in fonds) == 71
     assert {f["isin"] for f in fonds if not f["displayed"]} == {
         f["isin"] for f in fonds if f["share_class"] == "D"}
-    assert [f["isin"] for f in fonds if f["pending"]] == ["IE000S1JLOI7"]
+    assert [f["isin"] for f in fonds if f["pending"]] == []
 
 
 def test_trois_profils():
