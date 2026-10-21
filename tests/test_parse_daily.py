@@ -124,12 +124,16 @@ def page_fonds(date="11/10/2026", perf=True):
             f'<p>Dernier cours connu au {date}</p>{tableau}')
 
 
-def relever(pages, precedent=None):
+ISIN_PAR_ID = {bid: isin for isin, bid in FONDS}
+
+
+def relever(pages, precedent=None, avec_isin=True):
     def telecharger(bid):
         contenu = pages(bid)
         if isinstance(contenu, Exception):
             raise contenu
-        return contenu
+        # Une vraie fiche cite l'ISIN du fonds.
+        return contenu + f"<p>{ISIN_PAR_ID[bid]}</p>" if avec_isin else contenu
     return scrape_daily.relever(FONDS, telecharger, AUJOURDHUI, precedent, pause=0)
 
 
@@ -230,3 +234,23 @@ def test_releve_journalier_en_echec_sous_60_pourcents():
     ok, daily, echecs = scrape_daily.relever_journalier(
         FONDS, lambda bid: {"d": {"QuoteTab": []}}, AUJOURDHUI, None, pause=0)
     assert (ok, daily) == (False, None) and len(echecs) == 10
+
+
+# ── Identifiant mort : page d'accueil au lieu de la fiche ───────────────────
+def test_page_accueil_lue_comme_un_cours():
+    # Le danger : la page d'accueil contient un cours lisible (un indice).
+    assert scrape_daily.lire_page(page("accueil.html"))["vl"] == 7929.5
+
+
+def test_page_sans_isin_comptee_en_echec():
+    code, quotes, statut = relever(lambda bid: page_fonds(), avec_isin=False)
+    assert code == 1 and quotes is None
+    assert statut["funds_ok"] == 0 and len(statut["failed_isins"]) == 10
+
+
+def test_un_fonds_sur_la_page_accueil():
+    accueil = page("accueil.html")
+    code, quotes, statut = relever(lambda bid: accueil if bid == FONDS[0][1] else page_fonds() + f"<p>{ISIN_PAR_ID[bid]}</p>",
+                                   avec_isin=False)
+    assert code == 0
+    assert FONDS[0][0] not in quotes["data"] and statut["failed_isins"] == [FONDS[0][0]]

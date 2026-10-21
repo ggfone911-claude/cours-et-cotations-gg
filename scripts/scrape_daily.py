@@ -153,8 +153,14 @@ def relever(fonds, telecharger_page, aujourd_hui, precedent, pause=common.PAUSE)
     resultats, echecs = {}, []
     for n, (isin, bid) in enumerate(fonds, 1):
         try:
-            donnees = lire_page(telecharger_page(bid))
-            erreur = None if donnees else "VL introuvable dans la page"
+            html = telecharger_page(bid)
+            # Un identifiant mort renvoie la page d'accueil, dont le cours mis en avant
+            # (un indice) serait lu comme la VL : la fiche doit citer l'ISIN du fonds.
+            if isin not in html:
+                donnees, erreur = None, "ISIN absent de la page (identifiant Boursorama à vérifier)"
+            else:
+                donnees = lire_page(html)
+                erreur = None if donnees else "VL introuvable dans la page"
         except Exception as e:  # réseau, délai dépassé, page illisible
             donnees, erreur = None, f"erreur réseau : {e}"
         if donnees:

@@ -3,6 +3,13 @@ name: Tests
 on:
   push:
   pull_request:
+  # Appelé par la publication : le site n'est mis en ligne que si les tests passent.
+  workflow_call:
+    inputs:
+      ref:
+        description: Version à tester (vide = celle qui a déclenché le run)
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -12,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: actions/setup-python@v5
         with:

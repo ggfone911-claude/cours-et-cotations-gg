@@ -18,7 +18,15 @@ permissions:
   id-token: write
 
 jobs:
+  # Mêmes tests que tests.yml, sur la version qui va être publiée :
+  # en cas d'échec, le site en ligne garde la version précédente.
+  tests:
+    uses: ./.github/workflows/tests.yml
+    with:
+      ref: main
+
   deploy:
+    needs: tests
     runs-on: ubuntu-latest
     concurrency:
       group: pages

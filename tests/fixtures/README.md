@@ -7,6 +7,7 @@
 | `horizontale.html` | Dérivée de `verticale_0P.html` : les deux tableaux du fonds sont réécrits en mise en page horizontale (périodes en colonnes, ligne FONDS), avec les mêmes valeurs | Mise en page horizontale (en place jusqu'au 04/10/2026) |
 | `sans_performances.html` | Dérivée de `verticale_0P.html` : les deux tableaux du fonds sont retirés | Fonds sans tableau de performances |
 | `ticks_0P0001CB5C.json` | Réponse réelle de `GetTicksEOD` (5 ans), enregistrée le 13/10/2026 | Historique mensuel |
+| `accueil.html` | Page d'accueil réelle, servie le 21/10/2026 pour l'identifiant mort `MP-804518` (Eurose C), allégée | Un identifiant mort ne doit pas donner de VL : la fiche doit citer l'ISIN du fonds |
 
 Les pages sont allégées (scripts, images et indentation retirés) sans changer ce que le parseur en lit.
 
