@@ -54,10 +54,12 @@ Après une modification, le contrôle automatique sur GitHub vérifie que tout e
 
 ### La liste des fonds en chiffres
 
-- **61 fonds relevés** chaque jour sur Boursorama :
-  - 51 figurent sur la liste officielle Conservateur Finance du 01/10/2026 ;
-  - 10 ont été ajoutés le 08/10/2026.
-- **50 fonds affichés** sur le site.
+- **82 fonds relevés** chaque jour sur Boursorama :
+  - 47 figurent sur la liste officielle Conservateur Finance du 01/10/2026 ;
+  - 10 ont été ajoutés le 08/10/2026 ;
+  - 25 ont été ajoutés le 21/10/2026 : ouverts aux contrats d’après la liste des supports éligibles au 17/12/2025. Le 26ᵉ, Eurose (C), n’a plus de fiche Boursorama et n’a pas été ajouté.
+- **4 fonds retirés le 21/10/2026**, car non éligibles aux contrats : Congrégation Investissement (C) (remplacée par la part R dans le portefeuille Équilibré), DNCA Invest SRI Europe Growth, Sextant PME et Oddo BHF Active Small Cap.
+- **71 fonds affichés** sur le site.
 - **11 parts de distribution (D)** sont relevées mais pas affichées, par choix.
 - **1 fonds « En attente »** : Lazard Japanese Strategic Equity, car Boursorama ne publie pas encore ses données.
 

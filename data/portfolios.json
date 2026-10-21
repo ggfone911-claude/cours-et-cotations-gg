@@ -76,7 +76,7 @@
           "weight": 8
         },
         {
-          "isin": "FR0007439666",
+          "isin": "FR001400UAZ4",
           "weight": 8
         },
         {
@@ -127,27 +127,23 @@
       "funds": [
         {
           "isin": "LU0512124107",
-          "weight": 6
+          "weight": 7
         },
         {
           "isin": "FR0010148981",
-          "weight": 7
+          "weight": 8
         },
         {
           "isin": "FR0010564229",
-          "weight": 7
+          "weight": 8
         },
         {
           "isin": "FR0010863688",
-          "weight": 6
+          "weight": 7
         },
         {
           "isin": "FR0000295230",
-          "weight": 6
-        },
-        {
-          "isin": "LU0870553020",
-          "weight": 5
+          "weight": 7
         },
         {
           "isin": "LU1490785091",
@@ -155,11 +151,11 @@
         },
         {
           "isin": "FR0000974149",
-          "weight": 5
+          "weight": 6
         },
         {
           "isin": "FR0014008EI2",
-          "weight": 5
+          "weight": 6
         },
         {
           "isin": "FR0007076930",
@@ -178,12 +174,8 @@
           "weight": 4
         },
         {
-          "isin": "FR0010547869",
-          "weight": 3
-        },
-        {
           "isin": "LU2661119755",
-          "weight": 5
+          "weight": 6
         },
         {
           "isin": "LU1833929729",

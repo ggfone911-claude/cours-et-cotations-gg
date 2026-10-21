@@ -1,34 +1,25 @@
 {
  "daily": {
-  "date": "2026-10-21T11:36:14Z",
+  "date": "2026-10-21T16:10:33Z",
   "ok": true,
-  "funds_total": 61,
-  "funds_ok": 55,
-  "funds_failed": 6,
-  "failed_isins": [
-   "FR0010489542",
-   "FR0010510370",
-   "FR0007439666",
-   "FR001400UAZ4",
-   "FR0011175652",
-   "FR0011184191"
-  ],
-  "failed_step": null,
-  "newest_vl_date": "2026-10-20",
-  "message": "55/61 fonds relevés",
-  "journalier_ok": true,
-  "journalier_echecs": [
-   "IE000S1JLOI7"
-  ]
- },
- "monthly": {
-  "date": "2026-10-13T20:28:20Z",
-  "ok": true,
-  "funds_total": 61,
-  "funds_ok": 61,
+  "funds_total": 82,
+  "funds_ok": 82,
   "funds_failed": 0,
   "failed_isins": [],
   "failed_step": null,
-  "message": "61/61 historiques relevés"
+  "newest_vl_date": "2026-10-20",
+  "message": "82/82 fonds relevés",
+  "journalier_ok": true,
+  "journalier_echecs": []
+ },
+ "monthly": {
+  "date": "2026-10-21T16:15:05Z",
+  "ok": true,
+  "funds_total": 82,
+  "funds_ok": 82,
+  "funds_failed": 0,
+  "failed_isins": [],
+  "failed_step": null,
+  "message": "82/82 historiques relevés"
  }
 }

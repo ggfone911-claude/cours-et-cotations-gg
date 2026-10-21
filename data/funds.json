@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "source_list": "Liste des OPC commercialisés par Conservateur Finance — 01/10/2026, complétée des 10 fonds ajoutés le 08/10/2026",
+  "source_list": "Liste des OPC commercialisés par Conservateur Finance — 01/10/2026, complétée des 10 fonds ajoutés le 08/10/2026 ; complétée le 21/10/2026 de 25 des 26 fonds ouverts aux contrats d'après la liste des supports éligibles au 17/12/2025, et sans les 4 fonds non éligibles aux contrats",
   "categories": [
     {
       "id": "monetaire",
@@ -251,17 +251,6 @@
       "pending": null
     },
     {
-      "isin": "FR0007439666",
-      "bourso_id": "0P00005VUH",
-      "name": "Congrégation Investissement (C)",
-      "manager": "Conservateur Gestion Valor",
-      "category": "mixtes_oblig",
-      "srri": 4,
-      "share_class": "C",
-      "displayed": true,
-      "pending": null
-    },
-    {
       "isin": "FR001400UAZ4",
       "bourso_id": "0P0001XK54",
       "name": "Congrégation Investissement (R)",
@@ -317,17 +306,6 @@
       "pending": null
     },
     {
-      "isin": "FR0010547869",
-      "bourso_id": "MP-928594",
-      "name": "SEXTANT PME-A",
-      "manager": "Amiral Gestion",
-      "category": "actions_fr",
-      "srri": 6,
-      "share_class": "A",
-      "displayed": true,
-      "pending": null
-    },
-    {
       "isin": "FR0014008EH4",
       "bourso_id": "0P0001P8TC",
       "name": "Conservateur Actions Euro (I)",
@@ -335,17 +313,6 @@
       "category": "actions_eu",
       "srri": 6,
       "share_class": "I",
-      "displayed": true,
-      "pending": null
-    },
-    {
-      "isin": "FR0011606268",
-      "bourso_id": "0P00011IDZ",
-      "name": "Oddo BHF Active SMALL CAP (CR)",
-      "manager": "Oddo AM",
-      "category": "actions_eu",
-      "srri": 6,
-      "share_class": "A",
       "displayed": true,
       "pending": null
     },
@@ -424,17 +391,6 @@
       "srri": 5,
       "share_class": "D",
       "displayed": false,
-      "pending": null
-    },
-    {
-      "isin": "LU0870553020",
-      "bourso_id": "0P0000XTFD",
-      "name": "DNCA Invest SRI Europe Growth (A)",
-      "manager": "DNCA Finance",
-      "category": "actions_eu",
-      "srri": 6,
-      "share_class": "A",
-      "displayed": true,
       "pending": null
     },
     {
@@ -720,6 +676,281 @@
       "category": "flexibles",
       "srri": 4,
       "share_class": null,
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0000292278",
+      "bourso_id": "MP-829227",
+      "name": "Magellan (C)",
+      "manager": "Comgest AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0000978439",
+      "bourso_id": "MP-800357",
+      "name": "Palatine France Small Cap (I)",
+      "manager": "Palatine AM",
+      "category": "actions_fr",
+      "srri": 6,
+      "share_class": "I",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0000983819",
+      "bourso_id": "MP-805200",
+      "name": "OFI RS Croissance Durable et Solidaire (C)",
+      "manager": "OFI AM",
+      "category": "actions_eu",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010097683",
+      "bourso_id": "MP-802713",
+      "name": "CPR Croissance Réactive (P)",
+      "manager": "CPR AM",
+      "category": "flexibles",
+      "srri": 4,
+      "share_class": "P",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010286013",
+      "bourso_id": "MP-805700",
+      "name": "Sextant Grand Large (A)",
+      "manager": "Amiral Gestion",
+      "category": "flexibles",
+      "srri": 4,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010479931",
+      "bourso_id": "MP-806384",
+      "name": "EdR India (A)",
+      "manager": "Edmond de Rothschild AM",
+      "category": "actions_int",
+      "srri": 7,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010649079",
+      "bourso_id": "MP-534378",
+      "name": "Palatine Planète (R)",
+      "manager": "Palatine AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "R",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0010915314",
+      "bourso_id": "MP-805617",
+      "name": "La Française Obligation Carbon Impact (C)",
+      "manager": "La Française AM",
+      "category": "oblig_lt",
+      "srri": 3,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR0012844140",
+      "bourso_id": "0P00016HZ8",
+      "name": "CPR Global Silver Age (E)",
+      "manager": "CPR AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "E",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "FR001400U512",
+      "bourso_id": "0P0001UVBG",
+      "name": "Conservateur Investissement Proximité (C)",
+      "manager": "Conservateur Gestion Valor",
+      "category": "actions_fr",
+      "srri": 6,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0217139020",
+      "bourso_id": "MP-119337",
+      "name": "Pictet - Premium Brands (P)",
+      "manager": "Pictet AM Europe",
+      "category": "actions_int",
+      "srri": 5,
+      "share_class": "P",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0280435388",
+      "bourso_id": "MP-990541",
+      "name": "Pictet - Clean Energy Transition (P)",
+      "manager": "Pictet AM Europe",
+      "category": "actions_int",
+      "srri": 7,
+      "share_class": "P",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0366534344",
+      "bourso_id": "MP-521217",
+      "name": "Pictet - Nutrition (P)",
+      "manager": "Pictet AM Europe",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "P",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU0528228074",
+      "bourso_id": "0P0000VTJH",
+      "name": "FF - Sustainable Demographics Fund (A)",
+      "manager": "Fidelity AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1103305709",
+      "bourso_id": "0P000172SH",
+      "name": "EdR Fund - US Value (R)",
+      "manager": "Edmond de Rothschild AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "R",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1120766388",
+      "bourso_id": "0P00016ALF",
+      "name": "Candriam Equities L Biotechnology (C)",
+      "manager": "Candriam Lux",
+      "category": "actions_int",
+      "srri": 7,
+      "share_class": "C",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1160365091",
+      "bourso_id": "0P00016716",
+      "name": "EdR Fund - China (A)",
+      "manager": "Edmond de Rothschild AM",
+      "category": "actions_int",
+      "srri": 7,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1244893696",
+      "bourso_id": "0P00016P7T",
+      "name": "EdR Fund - Big Data (A)",
+      "manager": "Edmond de Rothschild AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1261432659",
+      "bourso_id": "0P00016FY4",
+      "name": "FF - World Fund (A)",
+      "manager": "Fidelity AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1653748860",
+      "bourso_id": "0P0001BOX5",
+      "name": "CPR Invest - Food For Generations (A)",
+      "manager": "CPR AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1744646933",
+      "bourso_id": "0P0001DK5M",
+      "name": "La Française IP Carbon Impact Global (R)",
+      "manager": "La Française AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "R",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1752460292",
+      "bourso_id": "0P0001EITS",
+      "name": "ODDO BHF Sustainable Credit Opportunities (CR-EUR)",
+      "manager": "ODDO BHF AM SAS",
+      "category": "oblig_lt",
+      "srri": 3,
+      "share_class": "CR",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1819480192",
+      "bourso_id": "0P0001DYQM",
+      "name": "Echiquier Artificial Intelligence (B)",
+      "manager": "Financière de l'Echiquier",
+      "category": "actions_int",
+      "srri": 7,
+      "share_class": "B",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1892829828",
+      "bourso_id": "0P0001EVSZ",
+      "name": "FF - Sustainable Water & Waste Fund (A)",
+      "manager": "Fidelity AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "A",
+      "displayed": true,
+      "pending": null
+    },
+    {
+      "isin": "LU1902443420",
+      "bourso_id": "0P0001FLNU",
+      "name": "CPR Invest Climate Action (A)",
+      "manager": "CPR AM",
+      "category": "actions_int",
+      "srri": 6,
+      "share_class": "A",
       "displayed": true,
       "pending": null
     }
