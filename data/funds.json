@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "source_list": "Liste des OPC commercialisés par Conservateur Finance — 01/10/2026, complétée des 10 fonds ajoutés le 08/10/2026 ; complétée le 21/10/2026 de 25 des 26 fonds ouverts aux contrats d'après la liste des supports éligibles au 17/12/2025, et sans les 4 fonds non éligibles aux contrats",
+  "source_list": "Liste des OPC commercialisés par Conservateur Finance — 01/10/2026, complétée des 10 fonds ajoutés le 08/10/2026 ; complétée le 21/10/2026 de 25 des 26 fonds ouverts aux contrats d'après la liste des supports éligibles au 17/12/2025, et sans les 4 fonds non éligibles aux contrats ; 4 supports fermés retirés le 22/10/2026",
   "categories": [
     {
       "id": "monetaire",
@@ -735,17 +735,6 @@
       "pending": null
     },
     {
-      "isin": "FR0010479931",
-      "bourso_id": "MP-806384",
-      "name": "EdR India (A)",
-      "manager": "Edmond de Rothschild AM",
-      "category": "actions_int",
-      "srri": 7,
-      "share_class": "A",
-      "displayed": true,
-      "pending": null
-    },
-    {
       "isin": "FR0010649079",
       "bourso_id": "MP-534378",
       "name": "Palatine Planète (R)",
@@ -775,17 +764,6 @@
       "category": "actions_int",
       "srri": 6,
       "share_class": "E",
-      "displayed": true,
-      "pending": null
-    },
-    {
-      "isin": "FR001400U512",
-      "bourso_id": "0P0001UVBG",
-      "name": "Conservateur Investissement Proximité (C)",
-      "manager": "Conservateur Gestion Valor",
-      "category": "actions_fr",
-      "srri": 6,
-      "share_class": "C",
       "displayed": true,
       "pending": null
     },
@@ -830,17 +808,6 @@
       "category": "actions_int",
       "srri": 6,
       "share_class": "A",
-      "displayed": true,
-      "pending": null
-    },
-    {
-      "isin": "LU1103305709",
-      "bourso_id": "0P000172SH",
-      "name": "EdR Fund - US Value (R)",
-      "manager": "Edmond de Rothschild AM",
-      "category": "actions_int",
-      "srri": 6,
-      "share_class": "R",
       "displayed": true,
       "pending": null
     },
@@ -907,17 +874,6 @@
       "category": "actions_int",
       "srri": 6,
       "share_class": "R",
-      "displayed": true,
-      "pending": null
-    },
-    {
-      "isin": "LU1752460292",
-      "bourso_id": "0P0001EITS",
-      "name": "ODDO BHF Sustainable Credit Opportunities (CR-EUR)",
-      "manager": "ODDO BHF AM SAS",
-      "category": "oblig_lt",
-      "srri": 3,
-      "share_class": "CR",
       "displayed": true,
       "pending": null
     },

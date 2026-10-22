@@ -48,8 +48,8 @@ def test_donnees_reelles_valides():
 
 def test_decompte_des_fonds():
     fonds = charger("funds.json")["funds"]
-    assert len(fonds) == 82
-    assert sum(f["displayed"] for f in fonds) == 71
+    assert len(fonds) == 78
+    assert sum(f["displayed"] for f in fonds) == 67
     assert {f["isin"] for f in fonds if not f["displayed"]} == {
         f["isin"] for f in fonds if f["share_class"] == "D"}
     assert [f["isin"] for f in fonds if f["pending"]] == []

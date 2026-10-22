@@ -206,7 +206,7 @@ def test_echec_ne_modifie_pas_quotes_json(tmp_path, monkeypatch):
     assert (tmp_path / "quotes.json").read_text(encoding="utf-8") == avant
     statut = json.loads((tmp_path / "status.json").read_text(encoding="utf-8"))
     assert statut["daily"]["ok"] is False
-    assert statut["daily"]["funds_failed"] == 82
+    assert statut["daily"]["funds_failed"] == 78
 
 
 # ── VL journalières (courbe 1 mois) ──────────────────────────────────────────
