@@ -1,21 +1,16 @@
 {
  "daily": {
-  "date": "2026-11-09T15:54:04Z",
+  "date": "2026-11-10T14:43:28Z",
   "ok": true,
   "funds_total": 78,
   "funds_ok": 78,
   "funds_failed": 0,
   "failed_isins": [],
   "failed_step": null,
-  "newest_vl_date": "2026-11-08",
+  "newest_vl_date": "2026-11-09",
   "message": "78/78 fonds relevés",
   "journalier_ok": true,
-  "journalier_echecs": [
-   "FR001400UAZ4",
-   "LU0104884860",
-   "LU0217139020",
-   "LU0280435388"
-  ]
+  "journalier_echecs": []
  },
  "monthly": {
   "date": "2026-11-01T14:15:11Z",
