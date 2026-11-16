@@ -15,15 +15,13 @@
   "journalier_echecs": []
  },
  "monthly": {
-  "date": "2026-11-01T14:15:11Z",
+  "date": "2026-11-16T09:17:16Z",
   "ok": true,
   "funds_total": 78,
-  "funds_ok": 77,
-  "funds_failed": 1,
-  "failed_isins": [
-   "FR0010135103"
-  ],
+  "funds_ok": 78,
+  "funds_failed": 0,
+  "failed_isins": [],
   "failed_step": null,
-  "message": "77/78 historiques relevés"
+  "message": "78/78 historiques relevés"
  }
 }
