@@ -254,3 +254,33 @@ def test_un_fonds_sur_la_page_accueil():
                                    avec_isin=False)
     assert code == 0
     assert FONDS[0][0] not in quotes["data"] and statut["failed_isins"] == [FONDS[0][0]]
+
+
+def _q(vl, date, **extra):
+    return {"vl": vl, "date": date, **extra}
+
+
+def test_date_de_vl_corrigee_par_la_courbe():
+    # Cas réel du 18/11/2026 : fiche « 265,88 au 13/11 », courbe 265,88 au 16/11.
+    jour = datetime.date(2026, 11, 18)
+    quotes = {"data": {
+        "A": _q(265.88, "2026-11-13"),                       # décalée : corrigée
+        "B": _q(100.0, "2026-11-16"),                        # déjà juste
+        "C": _q(50.0, "2026-11-13"),                         # VL différente : inchangée
+        "D": _q(10.0, "2026-11-12", stale_since="2026-11-17"),  # périmée : inchangée
+        "E": _q(20.0, "2026-11-13"),                         # date future : inchangée
+        "F": _q(30.0, "2026-10-01"),                         # écart > 8 jours : inchangée
+    }}
+    daily = {"data": {
+        "A": [{"date": "2026-11-13", "vl": 277.25}, {"date": "2026-11-16", "vl": 265.88}],
+        "B": [{"date": "2026-11-16", "vl": 100.0}],
+        "C": [{"date": "2026-11-16", "vl": 51.0}],
+        "D": [{"date": "2026-11-16", "vl": 10.0}],
+        "E": [{"date": "2026-11-19", "vl": 20.0}],
+        "F": [{"date": "2026-11-16", "vl": 30.0}],
+    }}
+    assert scrape_daily.dater_par_serie(quotes, daily, jour) == 1
+    d = quotes["data"]
+    assert d["A"] == {"vl": 265.88, "date": "2026-11-16"}   # le montant ne bouge pas
+    assert [d[k]["date"] for k in "BCDEF"] == [
+        "2026-11-16", "2026-11-13", "2026-11-12", "2026-11-13", "2026-10-01"]

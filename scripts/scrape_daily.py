@@ -271,6 +271,32 @@ def relever_journalier(fonds, telecharger, aujourd_hui, existant, pause=common.P
     return True, daily, echecs
 
 
+def dater_par_serie(quotes, daily, aujourd_hui):
+    """Corrige la date de VL d'après la série journalière. Renvoie le nombre de fonds corrigés.
+
+    En semaine, la fiche Boursorama affiche souvent le nouveau cours avec la date
+    du cours précédent (« dernier cours connu au 13/11 » pour la VL du 16/11).
+    Les dates de la série GetTicksEOD, elles, concordent avec les performances
+    Morningstar. Si la VL de la fiche est le dernier point de la série, à une date
+    plus récente (8 jours au plus, jamais dans le futur), on retient cette date.
+    Le montant de la VL n'est jamais modifié.
+    """
+    corriges = 0
+    for isin, entree in quotes["data"].items():
+        serie = daily["data"].get(isin) or []
+        if not serie or entree.get("stale_since") or not entree.get("date") or entree.get("vl") is None:
+            continue
+        dernier = serie[-1]
+        if abs(dernier["vl"] - entree["vl"]) > 1e-9 * max(1.0, abs(entree["vl"])):
+            continue
+        d_fiche = datetime.date.fromisoformat(entree["date"])
+        d_serie = datetime.date.fromisoformat(dernier["date"])
+        if d_fiche < d_serie <= aujourd_hui and (d_serie - d_fiche).days <= AGE_MAX_JOURS:
+            entree["date"] = dernier["date"]
+            corriges += 1
+    return corriges
+
+
 def main(dossier=common.DATA):
     fonds = common.charger_fonds(dossier)
     aujourd_hui = datetime.date.today()
@@ -286,6 +312,9 @@ def main(dossier=common.DATA):
         statut["journalier_ok"] = ok
         statut["journalier_echecs"] = echecs
         if daily is not None:
+            statut["dates_corrigees"] = dater_par_serie(quotes, daily, aujourd_hui)
+            print(f"Dates de VL corrigées d'après la courbe journalière : {statut['dates_corrigees']}")
+            common.ecrire_json(dossier / "quotes.json", quotes)
             common.ecrire_json(dossier / "daily.json", daily)
         else:
             statut["message"] += " — VL journalières en échec (courbe 1 mois non mise à jour)"
