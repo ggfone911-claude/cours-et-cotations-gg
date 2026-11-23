@@ -1,19 +1,17 @@
 {
  "daily": {
-  "date": "2026-11-21T15:01:26Z",
+  "date": "2026-11-23T17:53:09Z",
   "ok": true,
   "funds_total": 78,
-  "funds_ok": 77,
-  "funds_failed": 1,
-  "failed_isins": [
-   "FR0010564229"
-  ],
+  "funds_ok": 78,
+  "funds_failed": 0,
+  "failed_isins": [],
   "failed_step": null,
-  "newest_vl_date": "2026-11-19",
-  "message": "77/78 fonds relevés",
+  "newest_vl_date": "2026-11-22",
+  "message": "78/78 fonds relevés",
   "journalier_ok": true,
   "journalier_echecs": [],
-  "dates_corrigees": 0
+  "dates_corrigees": 11
  },
  "monthly": {
   "date": "2026-11-16T09:17:16Z",
